@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout android:background="@drawable/login_bg" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@+id/ll_input" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="6.0dip" android:layout_marginTop="55.0dip" android:layout_marginRight="6.0dip">
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="10.0dip">
+             <TextView android:id="@+id/tv_account" android:text="@string/label_account" android:layout_width="50.0dip" android:layout_height="wrap_content" />
+            <EditText android:id="@+id/et_account" android:text="" android:hint="@string/input_hint_account" android:layout_width="200.0dip" android:layout_height="wrap_content" android:height="180px" android:maxLength="10" android:inputType="textEmailAddress" android:layout_toRightOf="@id/tv_account" />
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="10.0dip" android:layout_marginBottom="20.0dip">
+        	<TextView android:id="@+id/tv_psw" android:text="@string/label_psw" android:layout_width="50.0dip" android:layout_height="wrap_content"  />
+        	<EditText android:id="@+id/et_psw" android:text=""  android:layout_width="200.0dip" android:layout_height="wrap_content" android:height="180px" android:maxLength="10" android:inputType="textPassword" android:layout_toRightOf="@id/tv_psw"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/ll_input">
+        <Button android:textSize="16.0sp"  android:id="@+id/btn_signin" android:background="@drawable/wb_btn_deep_selector" android:layout_width="120.0dip" android:layout_height="35.0dip" android:layout_marginRight="30.0dip" android:text="@string/btn_signin" />
+    </LinearLayout>
+    <ProgressBar android:id="@+id/myProgressBar" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" android:layout_below="@+id/btn_Signin" android:layout_alignLeft="@id/btn_Signin" />
+    <TextView android:textColor="#ff8d6316" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:text="@string/copyright" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+</RelativeLayout>

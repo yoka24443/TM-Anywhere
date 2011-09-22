@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout android:id="@+id/widget35" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@+id/day_week_lunar" android:layout_width="fill_parent" android:layout_height="26.0dip">
+        <TextView android:textSize="12.659973dip" android:textColor="#ff000000" android:gravity="center" android:id="@+id/day_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:text="22" android:layout_centerVertical="true" />
+        <TextView android:textSize="12.659973dip" android:textStyle="bold" android:textColor="#ff000000" android:gravity="center" android:id="@+id/dayofweek_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_toRightOf="@id/day_text" android:layout_centerVertical="true" />
+        <TextView android:textSize="11.659973dip" android:textStyle="bold" android:textColor="#ff6d7c81" android:gravity="center" android:id="@+id/lunar_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_toRightOf="@id/dayofweek_text" android:layout_centerVertical="true" />
+        <TextView android:textSize="11.659973dip" android:textColor="#ff6d7c81" android:id="@+id/dayafter_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <FrameLayout android:background="#ffbbbbbb" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_below="@id/day_week_lunar" />
+    <LinearLayout android:orientation="vertical" android:id="@+id/index_row_content" android:focusable="false" android:fadingEdge="none" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="1.0px" android:layout_marginBottom="5.0dip" android:layout_below="@id/day_week_lunar" />
+</RelativeLayout>
