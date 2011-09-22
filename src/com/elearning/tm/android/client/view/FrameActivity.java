@@ -1,6 +1,7 @@
 package com.elearning.tm.android.client.view;
 
 import com.elearning.tm.android.client.R;
+import com.elearning.tm.android.client.StartPage;
 
 
 import android.app.TabActivity;
@@ -13,8 +14,6 @@ import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-
-
 
 public class FrameActivity extends TabActivity  {
 
@@ -40,11 +39,10 @@ public class FrameActivity extends TabActivity  {
 
 		myTabhost = this.getTabHost();
 		group = (RadioGroup)findViewById(R.id.main_radio);
-		// ÉèÖÃTabHostµÄ±³¾°ÑÕÉ«blue
-		//myTabhost.setBackgroundColor(Color.argb(150, 22, 70, 150));
 
 		TabHost.TabSpec spec = null;
-		// Í¨¹ıIntent£¬½«activityµ¼Èë£¬ ¶ÔÓÚintent£¬Õâ¸öÀà²»ÄÜ ÊÇÄÚ²¿Àà£¬Õâ¸öÀà±ØĞëÔÚAndroidManifestÖĞ×¢²áµÄÀà
+
+		//é¦–é¡µ
 		Intent task = new Intent();
 		task.setClass(this, TastListActivity.class);
 		spec = myTabhost.newTabSpec("Tag1");
@@ -53,6 +51,7 @@ public class FrameActivity extends TabActivity  {
 		spec.setContent(task);
 		myTabhost.addTab(spec);
 
+		//æ·»åŠ ä»»åŠ¡
 		Intent calender = new Intent();
 		calender.setClass(this, TaskAddActivity.class);
 		spec = myTabhost.newTabSpec("Tag2");
@@ -60,13 +59,15 @@ public class FrameActivity extends TabActivity  {
 		spec.setContent(calender);
 		myTabhost.addTab(spec);
 
+		//æŠ¥è¡¨
 		Intent talk = new Intent();
-		talk.setClass(this, IndexActivity.class);
+		talk.setClass(this, StartPage.class);
 		spec = myTabhost.newTabSpec("Tag3");
 		spec.setIndicator("Intent3");
 		spec.setContent(talk);
 		myTabhost.addTab(spec);
 
+		//å‘é€çŸ­ä¿¡
 		Intent report = new Intent();
 		report.setClass(this, ExListView.class);
 		spec = myTabhost.newTabSpec("Tag4");
@@ -74,14 +75,15 @@ public class FrameActivity extends TabActivity  {
 		spec.setContent(report);
 		myTabhost.addTab(spec);
 		
+		//å…³äº
 		Intent about = new Intent();
-		about.setClass(this, TaskExListView.class);
+		about.setClass(this, AboutActivity.class);
 		spec = myTabhost.newTabSpec("Tag5");
 		spec.setIndicator("Intent4");
 		spec.setContent(about);
 		myTabhost.addTab(spec);
 
-		myTabhost.setCurrentTab(1);//ÉèÖÃµÚÒ»´Î´ò¿ªÊ±Ä¬ÈÏÏÔÊ¾µÄ±êÇ©£¬²ÎÊı´ú±íÆäÌí¼Óµ½±êÇ©ÖĞµÄË³Ğò£¬Î»ÖÃÊÇ´Ó0¿ªÊ¼µÄÅ¶
+		myTabhost.setCurrentTab(1);
 
 		group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {

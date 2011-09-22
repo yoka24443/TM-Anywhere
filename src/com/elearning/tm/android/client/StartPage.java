@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 public class StartPage extends Activity {
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +15,6 @@ public class StartPage extends Activity {
         setContentView(R.layout.main);
     }
     
-    /** 暂停2秒钟后跳转到任务列表界面 */
     @Override
     protected void onResume() {
 		super.onResume();

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TM-Anywhere</string>
-    <string name="startpage_title">上帝说,不要入戏太深。</string>
-    <string name="tasklist_title">工作计划</string>
-    <string name="copyright">Copyright © 2008-2011 TM - Task Manager</string>
-    <string name="huijintian">回今天</string>
-    <string name="dianjihuoqugengduo">点击获取更多...</string>
-    <string name="input_hint_account">请输入TM平台帐号</string>
-    <string name="label_account">帐号:</string>
-    <string name="label_psw">密码:</string>
-    <string name="btn_signup">开通微博</string>
+	<string name="app_name">TM-Anywhere</string>
+
+	<string name="tasklist_title">工作计划</string>
+	<string name="huijintian">回今天</string>
+	<string name="dianjihuoqugengduo">点击获取更多...</string>
+	<string name="input_hint_account">请输入TM平台帐号</string>
+	<string name="label_account">帐号:</string>
+	<string name="label_psw">密码:</string>
+	<string name="btn_signup">开通微博</string>
 	<string name="btn_signin">登录</string>
 	<string name="main_home">首页</string>
 	<string name="main_comment">评论</string>
@@ -19,23 +18,57 @@
 	<string name="more">更多</string>
 	<string name="btn_cancel">取消</string>
 	<string name="btn_save">保存</string>
-	  <!-- Login页面 -->
-    <string name="login_label_username">TM帐号:</string>
-    <string name="login_label_password">密码:</string>
-    <string name="login_label_signin">登 录</string>
-    <string name="login_status_logging_in">登录中...</string>
-    <string name="login_status_null_username_or_password">帐号和密码不能为空。</string>
-    <string name="login_status_invalid_username_or_password">帐号或密码错误，请重新输入。</string>
-    <string name="login_status_network_or_connection_error">网络错误，请稍后再试。</string>
-    <string name="login_status_network_or_runtime_error">网络或者程序内部出错，请稍后再试。</string>
-    <string name="login_register_link">今日事今日毕！今天你TM了吗？</string>
-    <string name="login_status_failure">登录失败。</string>
-      <!-- options menu -->
-    <string name="omenu_signout">注销</string>
-    <string name="omenu_refresh">刷新</string>
-    <string name="omenu_preferences">选项</string>
-    <string name="omenu_settings">设置</string>
-    <string name="omenu_search">搜索</string>
-    <string name="omenu_about">关于</string>
-    <string name="omenu_exit">退出</string>
+	<!-- Login页面 -->
+	<string name="login_label_username">TM帐号:</string>
+	<string name="login_label_password">密码:</string>
+	<string name="login_label_signin">登 录</string>
+	<string name="login_status_logging_in">登录中...</string>
+	<string name="login_status_null_username_or_password">帐号和密码不能为空。</string>
+	<string name="login_status_invalid_username_or_password">帐号或密码错误，请重新输入。</string>
+	<string name="login_status_network_or_connection_error">网络错误，请稍后再试。</string>
+	<string name="login_status_network_or_runtime_error">网络或者程序内部出错，请稍后再试。</string>
+	<string name="login_register_link">今日事今日毕！今天你TM了吗？</string>
+	<string name="login_status_failure">登录失败。</string>
+	<!-- 欢迎页面 -->
+	<string name="startpage_title">上帝说,不要入戏太深。</string>
+	<string name="copyright">Copyright © 2008-2011 TM - Task Manager</string>
+	<!-- 添加任务页面 -->
+	<string name="createtask_begindate_textview_text">开始时间</string>
+	<string name="createtask_enddate_textview_text">结束时间</string>
+	<string name="createtask_tasktype_textview_text">任务名称</string>
+	<string name="createtask_tasktype_spinner_prompt">所属项目</string>
+	<string name="createtask_subtasktype_textview_text">所属WBS</string>
+	<string name="createtask_subtasktype_spinner_prompt">选择子任务类型</string>
+	<string name="createtask_project_textview_text">项目名称</string>
+	<string name="createtask_project_spinner_prompt">选择项目名称</string>
+	<string name="createtask_taskcontent_textview_text">任务描述</string>
+	<string name="createtask_expectcost_textview_text">投入时间（小时）</string>
+	<string name="createtask_realcost_textview_text">实际时间（小时）</string>
+	<string name="createtask_completionrate_textview_text">状态</string>
+	<string name="createtask_completionrate_spinner_prompt">状态</string>
+	<!-- 关于页面 -->
+	<string name="help_version_string">365日历 版本号：v4.6.1</string>
+	<string name="help_file">1、我们做的不是软件，而是时间服务。
+		\n2、养成好的日历使用习惯，会让您的工作效率提高几倍，节约的时间相当于寿命延长10年以上。
+		\n3、建议您同时使用电脑版的365桌面日历,两个版本的数据是同步的（电脑添加会显示在手机上，反之亦然）。</string>
+	<string name="help_file_opda">1、我们做的不是软件，而是时间服务。
+		\n2、养成好的日历使用习惯，会让您的工作效率提高几倍，节约的时间相当于寿命延长10年以上。
+		\n3、建议您同时使用电脑版的365桌面日历,两个版本的数据是同步的（电脑添加会显示在手机上，反之亦然）。 \n关于使用上的问题，请访问：
+		www.365rili.com/shoujiHelp.html \n合作伙伴，OPDA俺拽论坛： www.opda.com.cn
+		\n版本号v4.6.1</string>
+	<string name="help_file_goapk">1、我们做的不是软件，而是时间服务。
+		\n2、养成好的日历使用习惯，会让您的工作效率提高几倍，节约的时间相当于寿命延长10年以上。
+		\n3、建议您同时使用电脑版的365桌面日历,两个版本的数据是同步的（电脑添加会显示在手机上，反之亦然）。 \n关于使用上的问题，请访问：
+		www.365rili.com/shoujiHelp.html \n合作伙伴，安智网： www.goapk.com \n版本号v4.6.1
+	</string>
+
+
+	<!-- options menu -->
+	<string name="omenu_signout">注销</string>
+	<string name="omenu_refresh">刷新</string>
+	<string name="omenu_preferences">选项</string>
+	<string name="omenu_settings">设置</string>
+	<string name="omenu_search">搜索</string>
+	<string name="omenu_about">关于</string>
+	<string name="omenu_exit">退出</string>
 </resources>

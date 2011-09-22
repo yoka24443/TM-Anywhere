@@ -17,16 +17,9 @@ import android.view.MenuItem;
 import com.elearning.tm.android.client.R;
 import com.elearning.tm.android.client.app.Preferences;
 import com.elearning.tm.android.client.app.TMApplication;
+import com.elearning.tm.android.client.view.AboutActivity;
 import com.elearning.tm.android.client.view.LoginActivity;
 
-
-
-/**
- * A BaseActivity has common routines and variables for an Activity that
- * contains a list of tweets and a text input field.
- * 
- * Not the cleanest design, but works okay for several Activities in this app.
- */
 
 public class BaseActivity extends Activity {
 
@@ -160,80 +153,79 @@ public class BaseActivity extends Activity {
 //	}
 
 	// Menus.
-	//protected static final int OPTIONS_MENU_ID_LOGOUT = 1;
-	//protected static final int OPTIONS_MENU_ID_PREFERENCES = 2;
-	//protected static final int OPTIONS_MENU_ID_ABOUT = 3;
-//	protected static final int OPTIONS_MENU_ID_SEARCH = 4;
-//	protected static final int OPTIONS_MENU_ID_REPLIES = 5;
-//	protected static final int OPTIONS_MENU_ID_DM = 6;
-//	protected static final int OPTIONS_MENU_ID_TWEETS = 7;
-//	protected static final int OPTIONS_MENU_ID_TOGGLE_REPLIES = 8;
-//	protected static final int OPTIONS_MENU_ID_FOLLOW = 9;
-//	protected static final int OPTIONS_MENU_ID_UNFOLLOW = 10;
-//	protected static final int OPTIONS_MENU_ID_IMAGE_CAPTURE = 11;
-//	protected static final int OPTIONS_MENU_ID_PHOTO_LIBRARY = 12;
-	//protected static final int OPTIONS_MENU_ID_EXIT = 13;
+	protected static final int OPTIONS_MENU_ID_LOGOUT = 1;
+	protected static final int OPTIONS_MENU_ID_PREFERENCES = 2;
+	protected static final int OPTIONS_MENU_ID_ABOUT = 3;
+	protected static final int OPTIONS_MENU_ID_SEARCH = 4;
+	protected static final int OPTIONS_MENU_ID_REPLIES = 5;
+	protected static final int OPTIONS_MENU_ID_DM = 6;
+	protected static final int OPTIONS_MENU_ID_TWEETS = 7;
+	protected static final int OPTIONS_MENU_ID_TOGGLE_REPLIES = 8;
+	protected static final int OPTIONS_MENU_ID_FOLLOW = 9;
+	protected static final int OPTIONS_MENU_ID_UNFOLLOW = 10;
+	protected static final int OPTIONS_MENU_ID_IMAGE_CAPTURE = 11;
+	protected static final int OPTIONS_MENU_ID_PHOTO_LIBRARY = 12;
+	protected static final int OPTIONS_MENU_ID_EXIT = 13;
 
 	/**
 	 * 如果增加了Option Menu常量的数量，则必须重载此方法， 以保证其他人使用常量时不产生重复
 	 * 
 	 * @return 最大的Option Menu常量
 	 */
-//	protected int getLastOptionMenuId() {
-//		return OPTIONS_MENU_ID_PHOTO_LIBRARY;//OPTIONS_MENU_ID_EXIT;
-//	}
+	protected int getLastOptionMenuId() {
+		return OPTIONS_MENU_ID_PHOTO_LIBRARY;//OPTIONS_MENU_ID_EXIT;
+	}
 
 //	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		super.onCreateOptionsMenu(menu);
-//
-//		MenuItem item;
-//		item = menu.add(0, OPTIONS_MENU_ID_PREFERENCES, 0,
-//				R.string.omenu_settings);
-//		item.setIcon(android.R.drawable.ic_menu_preferences);
-//
-//		item = menu.add(0, OPTIONS_MENU_ID_LOGOUT, 0, R.string.omenu_signout);
-//		item.setIcon(android.R.drawable.ic_menu_revert);
-//
-//		item = menu.add(0, OPTIONS_MENU_ID_ABOUT, 0, R.string.omenu_about);
-//		item.setIcon(android.R.drawable.ic_menu_info_details);
-//
-//		item = menu.add(0, OPTIONS_MENU_ID_EXIT, 0, R.string.omenu_exit);
-//		item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-//
-//		return true;
-//	}
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+
+		MenuItem item;
+		item = menu.add(0, OPTIONS_MENU_ID_PREFERENCES, 0,
+				R.string.omenu_settings);
+		item.setIcon(android.R.drawable.ic_menu_preferences);
+
+		item = menu.add(0, OPTIONS_MENU_ID_LOGOUT, 0, R.string.omenu_signout);
+		item.setIcon(android.R.drawable.ic_menu_revert);
+
+		item = menu.add(0, OPTIONS_MENU_ID_ABOUT, 0, R.string.omenu_about);
+		item.setIcon(android.R.drawable.ic_menu_info_details);
+
+		item = menu.add(0, OPTIONS_MENU_ID_EXIT, 0, R.string.omenu_exit);
+		item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+
+		return true;
+	}
 
 	protected static final int REQUEST_CODE_LAUNCH_ACTIVITY = 0;
 	protected static final int REQUEST_CODE_PREFERENCES = 1;
 
 //	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		switch (item.getItemId()) {
-//		case OPTIONS_MENU_ID_LOGOUT:
-//			logout();
-//			return true;
-//		case OPTIONS_MENU_ID_SEARCH:
-//			onSearchRequested();
-//			return true;
-//		case OPTIONS_MENU_ID_PREFERENCES:
-//			Intent launchPreferencesIntent = new Intent().setClass(this,
-//					PreferencesActivity.class);
-//			startActivityForResult(launchPreferencesIntent,
-//					REQUEST_CODE_PREFERENCES);
-//			return true;
-//		case OPTIONS_MENU_ID_ABOUT:
-//			// AboutDialog.show(this);
-//			Intent intent = new Intent().setClass(this, AboutActivity.class);
-//			startActivity(intent);
-//			return true;
-//		case OPTIONS_MENU_ID_EXIT:
-//			exit();
-//			return true;
-//		}
-//
-//		return super.onOptionsItemSelected(item);
-//	}
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case OPTIONS_MENU_ID_LOGOUT:
+			logout();
+			return true;
+		case OPTIONS_MENU_ID_SEARCH:
+			onSearchRequested();
+			return true;
+		case OPTIONS_MENU_ID_PREFERENCES:
+		/*	Intent launchPreferencesIntent = new Intent().setClass(this,
+					PreferencesActivity.class);
+			startActivityForResult(launchPreferencesIntent,
+					REQUEST_CODE_PREFERENCES);*/
+			return true;
+		case OPTIONS_MENU_ID_ABOUT:
+			Intent intent = new Intent().setClass(this, AboutActivity.class);
+			startActivity(intent);
+			return true;
+		case OPTIONS_MENU_ID_EXIT:
+			exit();
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
 
 	protected void exit() {
 		//TwitterService.unschedule(this);

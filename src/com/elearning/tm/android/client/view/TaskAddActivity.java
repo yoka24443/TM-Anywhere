@@ -9,6 +9,8 @@ public class TaskAddActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.taskadd_acivity);
+		setContentView(R.layout.create_task);
+		
+
 	}
 }
