@@ -3,6 +3,8 @@
  */
 package com.elearning.tm.android.client.view.module;
 
+import com.elearning.tm.android.client.R;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -17,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class UserCursorAdapter extends CursorAdapter implements TweetAdapter {
+public class UserCursorAdapter extends CursorAdapter implements TmAdapter {
 	private static final String TAG = "TweetCursorAdapter";
 
 	private Context mContext;
@@ -62,18 +64,18 @@ public class UserCursorAdapter extends CursorAdapter implements TweetAdapter {
 //	};
 
 //	@Override
-//	public View newView(Context context, Cursor cursor, ViewGroup parent) {
-////		View view = mInflater.inflate(R.layout.follower_item, parent, false);
-//		Log.d(TAG, "load newView");
-//		UserCursorAdapter.ViewHolder holder = new ViewHolder();
-////		holder.screenName = (TextView) view.findViewById(R.id.screen_name);
-////		holder.profileImage = (ImageView) view.findViewById(R.id.profile_image);
-////		// holder.lastStatus=(TextView) view.findViewById(R.id.last_status);
-////		holder.userId = (TextView) view.findViewById(R.id.user_id);
-////		view.setTag(holder);
-////
-//		return view;
-//	}
+	public View newView(Context context, Cursor cursor, ViewGroup parent) {
+		View view = mInflater.inflate(R.layout.follower_item, parent, false);
+		Log.d(TAG, "load newView");
+		UserCursorAdapter.ViewHolder holder = new ViewHolder();
+		holder.screenName = (TextView) view.findViewById(R.id.screen_name);
+		holder.profileImage = (ImageView) view.findViewById(R.id.profile_image);
+		// holder.lastStatus=(TextView) view.findViewById(R.id.last_status);
+		holder.userId = (TextView) view.findViewById(R.id.user_id);
+		view.setTag(holder);
+
+		return view;
+	}
 
 	private static class ViewHolder {
 

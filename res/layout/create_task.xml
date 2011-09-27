@@ -1,97 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ScrollView android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/layout_create_task_root" android:orientation="vertical"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	xmlns:android="http://schemas.android.com/apk/res/android">
-	<LinearLayout android:orientation="vertical"
-		android:layout_width="fill_parent" android:layout_height="fill_parent">
+	android:background="#e7e7e7">
+	<include android:id="@+id/title" layout="@layout/header_write" />
+	<ScrollView android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		xmlns:android="http://schemas.android.com/apk/res/android">
+
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
 
 
-		<TextView android:id="@+id/createtask_project_textview"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/createtask_project_textview_text" />
-		<Spinner android:id="@+id/createtask_project_spinner"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:prompt="@string/createtask_project_spinner_prompt" />
-		<TextView android:layout_height="1.0px"
-			style="?android:attr/listSeparatorTextViewStyle" />
-
-		<TextView android:id="@+id/createtask_subtasktype_textview"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/createtask_subtasktype_textview_text" />
-		<Spinner android:id="@+id/createtask_subtasktype_spinner"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:prompt="@string/createtask_subtasktype_spinner_prompt" />
-		<TextView android:layout_height="1.0px"
-			style="?android:attr/listSeparatorTextViewStyle" />
-
-
-
-
-		<TextView android:id="@+id/createtask_tasktype_textview"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/createtask_tasktype_textview_text" />
-		<EditText android:id="@+id/createtask_subjectcontent_edittext"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:text="" android:hint="@string/createtask_taskcontent_textview_text"
-			android:maxLength="20" />
-
-
-
-		<LinearLayout android:orientation="horizontal"
-			android:id="@+id/createtask_date_linearLayout" android:layout_width="fill_parent"
-			android:layout_height="fill_parent">
-
-			<TextView android:id="@+id/createtask_begindate_textview"
+			<TextView android:id="@+id/createtask_project_textview"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:text="@string/createtask_begindate_textview_text" />
-			<Button android:id="@+id/createtask_date_button"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:text="2011-5-26" />
+				android:text="@string/createtask_project_textview_text" />
+			<Spinner android:id="@+id/createtask_project_spinner"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:prompt="@string/createtask_project_spinner_prompt" />
+			<TextView android:layout_height="1.0px"
+				style="?android:attr/listSeparatorTextViewStyle" />
 
-			<TextView android:id="@+id/createtask_enddate_textview"
+			<TextView android:id="@+id/createtask_subtasktype_textview"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:text="@string/createtask_enddate_textview_text" />
-			<Button android:id="@+id/createtask_date_button"
+				android:text="@string/createtask_subtasktype_textview_text" />
+			<Spinner android:id="@+id/createtask_subtasktype_spinner"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:prompt="@string/createtask_subtasktype_spinner_prompt" />
+			<TextView android:layout_height="1.0px"
+				style="?android:attr/listSeparatorTextViewStyle" />
+
+			<TextView android:id="@+id/createtask_tasktype_textview"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:text="2011-9-22" />
+				android:text="@string/createtask_tasktype_textview_text" />
+			<EditText android:id="@+id/createtask_subjectcontent_edittext"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:text="" android:hint="@string/createtask_taskcontent_textview_text"
+				android:maxLength="20" />
+
+			<RelativeLayout android:gravity="center_vertical"
+				android:id="@+id/createtask_date_linearLayout" android:layout_width="fill_parent"
+				android:layout_height="fill_parent">
+
+				<TextView android:id="@+id/createtask_begindate_textview"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="@string/createtask_begindate_textview_text"
+					android:layout_alignParentLeft="true" android:layout_margin="5dp" />
+				<Button android:id="@+id/createtask_begindate_button"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="2011-5-26" android:layout_toRightOf="@id/createtask_begindate_textview" />
+
+				<Button android:id="@+id/createtask_enddate_button"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="2011-9-22" android:layout_alignParentRight="true"
+					android:layout_marginRight="5dp" />
+				<TextView android:id="@+id/createtask_enddate_textview"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="@string/createtask_enddate_textview_text"
+					android:layout_toLeftOf="@id/createtask_enddate_button"
+					android:layout_margin="5dp" />
+
+			</RelativeLayout>
+
+			<TextView android:id="@+id/createtask_taskcontent_textview"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:text="@string/createtask_taskcontent_textview_text" />
+			<EditText android:id="@+id/createtask_taskcontent_edittext"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:text="" android:hint="@string/createtask_taskcontent_textview_text"
+				android:lines="3" android:maxLength="200" />
+
+			<RelativeLayout android:gravity="center_vertical"
+				android:id="@+id/createtask_time_linearLayout" android:layout_width="fill_parent"
+				android:layout_height="fill_parent">
+				<TextView android:id="@+id/createtask_expectcost_textview"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="@string/createtask_expectcost_textview_text"
+					android:layout_alignParentLeft="true" android:layout_margin="5dp" />
+				<EditText android:id="@+id/createtask_expectcost_edittext"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="" android:hint="@string/createtask_expectcost_textview_text"
+					android:singleLine="true" android:maxLength="2" android:numeric="integer"
+					android:layout_toRightOf="@id/createtask_expectcost_textview" />
+
+				<EditText android:id="@+id/createtask_realcost_edittext"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="" android:hint="@string/createtask_realcost_textview_text"
+					android:singleLine="true" android:maxLength="2" android:numeric="integer"
+					android:layout_alignParentRight="true" android:layout_marginRight="5dp" />
+				<TextView android:id="@+id/createtask_realcost_textview"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="@string/createtask_realcost_textview_text"
+					android:layout_toLeftOf="@id/createtask_realcost_edittext"
+					android:layout_margin="5dp" />
+
+			</RelativeLayout>
+
+			<TextView android:id="@+id/createtask_completionrate_textview"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:text="@string/createtask_completionrate_textview_text" />
+			<Spinner android:id="@+id/createtask_completionrate_spinner"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:prompt="@string/createtask_completionrate_spinner_prompt" />
+			<TextView android:layout_height="1.0px"
+				style="?android:attr/listSeparatorTextViewStyle" />
 		</LinearLayout>
 
-
-
-		<TextView android:id="@+id/createtask_taskcontent_textview"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/createtask_taskcontent_textview_text" />
-		<EditText android:id="@+id/createtask_taskcontent_edittext"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:text="" android:hint="@string/createtask_taskcontent_textview_text"
-			android:lines="3" android:maxLength="200" />
-
-
-		<TextView android:id="@+id/createtask_expectcost_textview"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/createtask_expectcost_textview_text" />
-		<EditText android:id="@+id/createtask_expectcost_edittext"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:text="" android:hint="@string/createtask_expectcost_textview_text"
-			android:singleLine="true" android:maxLength="4" android:numeric="integer" />
-
-		<TextView android:id="@+id/createtask_realcost_textview"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/createtask_realcost_textview_text" />
-		<EditText android:id="@+id/createtask_realcost_edittext"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:text="" android:hint="@string/createtask_realcost_textview_text"
-			android:singleLine="true" android:maxLength="4" android:numeric="integer" />
-
-
-		<TextView android:id="@+id/createtask_completionrate_textview"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/createtask_completionrate_textview_text" />
-		<Spinner android:id="@+id/createtask_completionrate_spinner"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:prompt="@string/createtask_completionrate_spinner_prompt" />
-		<TextView android:layout_height="1.0px"
-			style="?android:attr/listSeparatorTextViewStyle" />
-
-	</LinearLayout>
-</ScrollView>
+	</ScrollView>
+</LinearLayout>

@@ -7,19 +7,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.elearning.tm.android.client.R;
-import com.elearning.tm.android.client.app.Preferences;
+import com.elearning.tm.android.client.StartPage;
 import com.elearning.tm.android.client.app.TMApplication;
 import com.elearning.tm.android.client.view.AboutActivity;
 import com.elearning.tm.android.client.view.LoginActivity;
-
 
 public class BaseActivity extends Activity {
 
@@ -37,17 +34,11 @@ public class BaseActivity extends Activity {
 	// 为了能对上层返回的信息进行判断处理，我们使用_onCreate代替真正的
 	// onCreate进行工作。onCreate仅在顶层调用_onCreate。
 	protected boolean _onCreate(Bundle savedInstanceState) {
-//		if (TMApplication.tmPref.getBoolean(
-//				Preferences.FORCE_SCREEN_ORIENTATION_PORTRAIT, false)) {
-//			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//		}
+
 		if (!checkIsLogedIn()) {
 			return false;
 		} else {
-			//TODO:暂时不增加配置功能
-			//PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-			mPreferences = TMApplication.tmPref; // PreferenceManager.getDefaultSharedPreferences(this);
-
+			mPreferences = TMApplication.tmPref;
 			return true;
 		}
 	}
@@ -58,19 +49,18 @@ public class BaseActivity extends Activity {
 		} else {
 			setResult(RESULT_LOGOUT);
 		}
-
 		finish();
 	}
 
-//	//TODO:具体数据访问类的类的封装
-//	public TwitterDatabase getDb() {
-//		return  TMApplication.tmDb;
-//	}
-//
-//	//TODO:具体数据网络连接的类的封装
-//	public Weibo getApi() {
-//		return TMApplication.tmApi;
-//	}
+	// //TODO:具体数据访问类的类的封装
+	// public TwitterDatabase getDb() {
+	// return TMApplication.tmDb;
+	// }
+	//
+	// //TODO:具体数据网络连接的类的封装
+	// public Weibo getApi() {
+	// return TMApplication.tmApi;
+	// }
 
 	public SharedPreferences getPreferences() {
 		return mPreferences;
@@ -81,76 +71,80 @@ public class BaseActivity extends Activity {
 		super.onDestroy();
 	}
 
-//	protected boolean isLoggedIn() {
-//		return getApi().isLoggedIn();
-//	}
-
 	private static final int RESULT_LOGOUT = RESULT_FIRST_USER + 1;
 
 	private void _logout() {
-		//TwitterService.unschedule(BaseActivity.this);
-
-//		getDb().clearData();
-//		getApi().reset();
-
-		// Clear SharedPreferences
 		SharedPreferences.Editor editor = mPreferences.edit();
 		editor.clear();
 		editor.commit();
-
-		// TODO: cancel notifications.
-		//TwitterService.unschedule(BaseActivity.this);
-
 		handleLoggedOut();
 	}
 
 	public void logout() {
-		Dialog dialog = new AlertDialog.Builder(BaseActivity.this)
-				.setTitle("提示").setMessage("确实要注销吗?")
-				.setPositiveButton("确定", new OnClickListener() {
+		Dialog dialog = new AlertDialog.Builder(BaseActivity.this).setTitle(
+				"提示").setMessage("确实要注销吗?").setPositiveButton("确定",
+				new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						_logout();
 					}
 
 				}).setNegativeButton("取消", new OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				}).create();
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		}).create();
 		dialog.show();
+	}
+
+	public void feedback() {
+		String deviceModel = android.os.Build.MODEL;
+		String versionRelease = android.os.Build.VERSION.RELEASE;
+		String versionName = this.getString(R.string.help_version_string);
+		String feedback = "@熊猫大侠爱地球 " + "# " + versionName + " #" +"/"
+				+ deviceModel + "/" + versionRelease + "\n建议如下:";
+
+		//Extra直接写mail地址字符串的方法貌似不行
+		String[] receive = { this.getString(R.string.feedback_mail) };
+		final Intent emailIntent = new Intent(
+				android.content.Intent.ACTION_SEND);
+		emailIntent.setType("plain/text");
+		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
+				receive);
+		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+				this.getString(R.string.feedback_subject));
+		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, feedback);
+		startActivity(Intent.createChooser(emailIntent, this.getString(R.string.omenu_feedback)));
 	}
 
 	protected void showLogin() {
 		Intent intent = new Intent(this, LoginActivity.class);
-		// TODO: might be a hack?
 		intent.putExtra(Intent.EXTRA_INTENT, getIntent());
-
 		startActivity(intent);
 	}
 
-//	protected void manageUpdateChecks() {
-//		// 检查后台更新状态设置
-//		boolean isUpdateEnabled = mPreferences.getBoolean(
-//				Preferences.CHECK_UPDATES_KEY, false);
-//
-//		if (isUpdateEnabled) {
-//			TwitterService.schedule(this);
-//		} else if (!TwitterService.isWidgetEnabled()) {
-//			TwitterService.unschedule(this);
-//		}
-//
-//		// 检查强制竖屏设置
-//		boolean isOrientationPortrait = mPreferences.getBoolean(
-//				Preferences.FORCE_SCREEN_ORIENTATION_PORTRAIT, false);
-//		if (isOrientationPortrait) {
-//			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//		} else {
-//			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-//		}
-//
-//	}
+	// protected void manageUpdateChecks() {
+	// // 检查后台更新状态设置
+	// boolean isUpdateEnabled = mPreferences.getBoolean(
+	// Preferences.CHECK_UPDATES_KEY, false);
+	//
+	// if (isUpdateEnabled) {
+	// TwitterService.schedule(this);
+	// } else if (!TwitterService.isWidgetEnabled()) {
+	// TwitterService.unschedule(this);
+	// }
+	//
+	// // 检查强制竖屏设置
+	// boolean isOrientationPortrait = mPreferences.getBoolean(
+	// Preferences.FORCE_SCREEN_ORIENTATION_PORTRAIT, false);
+	// if (isOrientationPortrait) {
+	// setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	// } else {
+	// setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+	// }
+	//
+	// }
 
 	// Menus.
 	protected static final int OPTIONS_MENU_ID_LOGOUT = 1;
@@ -166,6 +160,7 @@ public class BaseActivity extends Activity {
 	protected static final int OPTIONS_MENU_ID_IMAGE_CAPTURE = 11;
 	protected static final int OPTIONS_MENU_ID_PHOTO_LIBRARY = 12;
 	protected static final int OPTIONS_MENU_ID_EXIT = 13;
+	protected static final int OPTIONS_MENU_ID_FEEDBACK = 14; // 反馈信息按钮
 
 	/**
 	 * 如果增加了Option Menu常量的数量，则必须重载此方法， 以保证其他人使用常量时不产生重复
@@ -173,17 +168,22 @@ public class BaseActivity extends Activity {
 	 * @return 最大的Option Menu常量
 	 */
 	protected int getLastOptionMenuId() {
-		return OPTIONS_MENU_ID_PHOTO_LIBRARY;//OPTIONS_MENU_ID_EXIT;
+		return OPTIONS_MENU_ID_FEEDBACK;
 	}
 
-//	@Override
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
 		MenuItem item;
-		item = menu.add(0, OPTIONS_MENU_ID_PREFERENCES, 0,
-				R.string.omenu_settings);
-		item.setIcon(android.R.drawable.ic_menu_preferences);
+		// 功能比较少暂时不需要配置功能,以后可能会用到
+		// item = menu.add(0, OPTIONS_MENU_ID_PREFERENCES, 0,
+		// R.string.omenu_settings);
+		// item.setIcon(android.R.drawable.ic_menu_preferences);
+
+		item = menu
+				.add(0, OPTIONS_MENU_ID_FEEDBACK, 0, R.string.omenu_feedback);
+		item.setIcon(android.R.drawable.ic_menu_send);
 
 		item = menu.add(0, OPTIONS_MENU_ID_LOGOUT, 0, R.string.omenu_signout);
 		item.setIcon(android.R.drawable.ic_menu_revert);
@@ -200,7 +200,7 @@ public class BaseActivity extends Activity {
 	protected static final int REQUEST_CODE_LAUNCH_ACTIVITY = 0;
 	protected static final int REQUEST_CODE_PREFERENCES = 1;
 
-//	@Override
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case OPTIONS_MENU_ID_LOGOUT:
@@ -209,11 +209,8 @@ public class BaseActivity extends Activity {
 		case OPTIONS_MENU_ID_SEARCH:
 			onSearchRequested();
 			return true;
-		case OPTIONS_MENU_ID_PREFERENCES:
-		/*	Intent launchPreferencesIntent = new Intent().setClass(this,
-					PreferencesActivity.class);
-			startActivityForResult(launchPreferencesIntent,
-					REQUEST_CODE_PREFERENCES);*/
+		case OPTIONS_MENU_ID_FEEDBACK:
+			feedback();
 			return true;
 		case OPTIONS_MENU_ID_ABOUT:
 			Intent intent = new Intent().setClass(this, AboutActivity.class);
@@ -228,21 +225,18 @@ public class BaseActivity extends Activity {
 	}
 
 	protected void exit() {
-		//TwitterService.unschedule(this);
 		Intent i = new Intent(Intent.ACTION_MAIN);
 		i.addCategory(Intent.CATEGORY_HOME);
 		startActivity(i);
 	}
 
 	protected void launchActivity(Intent intent) {
-		// TODO: probably don't need this result chaining to finish upon logout.
-		// since the subclasses have to check in onResume.
 		startActivityForResult(intent, REQUEST_CODE_LAUNCH_ACTIVITY);
 	}
 
 	protected void launchDefaultActivity() {
 		Intent intent = new Intent();
-//		intent.setClass(this, TwitterActivity.class);
+		intent.setClass(this, StartPage.class);
 		startActivity(intent);
 	}
 
@@ -251,7 +245,7 @@ public class BaseActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (requestCode == REQUEST_CODE_PREFERENCES && resultCode == RESULT_OK) {
-//			manageUpdateChecks();
+			// manageUpdateChecks();
 		} else if (requestCode == REQUEST_CODE_LAUNCH_ACTIVITY
 				&& resultCode == RESULT_LOGOUT) {
 			Log.d(TAG, "Result logout.");
@@ -260,11 +254,11 @@ public class BaseActivity extends Activity {
 	}
 
 	protected boolean checkIsLogedIn() {
-//		if (!getApi().isLoggedIn()) {
-//			Log.d(TAG, "Not logged in.");
-//			handleLoggedOut();
-//			return false;
-//		}
+		// if (!TMApplication.isLogined) { //代码存在问题,为了调试暂时注释掉
+		// Log.d(TAG, "Not logged in.");
+		// handleLoggedOut();
+		// return false;
+		// }
 		return true;
 	}
 

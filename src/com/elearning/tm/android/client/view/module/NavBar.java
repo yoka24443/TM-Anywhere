@@ -17,8 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.elearning.tm.android.client.R;
+import com.elearning.tm.android.client.view.TaskAddActivity;
 import com.elearning.tm.android.client.view.base.Refreshable;
-
 
 public class NavBar implements Widget {
 	private static final String TAG = "NavBar";
@@ -51,22 +51,20 @@ public class NavBar implements Widget {
 		switch (style) {
 		case HEADER_STYLE_HOME:
 			addTitleButtonTo(activity);
-//			addWriteButtonTo(activity);
-			addSearchButtonTo(activity);
-			addRefreshButtonTo(activity);
+			addWriteButtonTo(activity);
 			break;
 		case HEADER_STYLE_BACK:
-//			addBackButtonTo(activity);
-//			addWriteButtonTo(activity);
+			// addBackButtonTo(activity);
+			// addWriteButtonTo(activity);
 			addSearchButtonTo(activity);
 			addRefreshButtonTo(activity);
 			break;
 		case HEADER_STYLE_WRITE:
-//			addBackButtonTo(activity);
+			// addBackButtonTo(activity);
 			break;
 		case HEADER_STYLE_SEARCH:
-//			addBackButtonTo(activity);
-//			addSearchBoxTo(activity);
+			// addBackButtonTo(activity);
+			// addSearchBoxTo(activity);
 			addSearchButtonTo(activity);
 			break;
 		}
@@ -92,28 +90,6 @@ public class NavBar implements Widget {
 	 */
 	private void addTitleButtonTo(final Activity acticity) {
 		mTitleButton = (TextView) acticity.findViewById(R.id.title);
-		mTitleButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				int top = mTitleButton.getTop();
-				int height = mTitleButton.getHeight();
-				int x = top + height;
-
-				if (null == mDialog) {
-//					Log.d(TAG, "Create menu dialog.");
-//					mDialog = new MenuDialog(acticity);
-//					mDialog.bindEvent(acticity);
-//					mDialog.setPosition(-1, x);
-				}
-
-				// toggle dialog
-				if (mDialog.isShowing()) {
-					mDialog.dismiss(); // 没机会触发
-				} else {
-					mDialog.show();
-				}
-			}
-		});
 	}
 
 	/**
@@ -147,29 +123,30 @@ public class NavBar implements Widget {
 	 * @param activity
 	 */
 	private void addRefreshButtonTo(final Activity activity) {
-//		mRefreshButton = (ImageView) activity.findViewById(R.id.top_refresh);
-//		
-//
-//		mProgressBar = (ProgressBar) activity.findViewById(R.id.progress_bar);
-//		mLoadingProgress = (ProgressBar) activity
-//				.findViewById(R.id.top_refresh_progressBar);
-//
-//		mRefreshButton.setOnClickListener(new View.OnClickListener() {
-//
-//			public void onClick(View v) {
-//				if (activity instanceof Refreshable) {
-//					((Refreshable) activity).doRetrieve();
-//				} else {
-//					Log.e(TAG, "The current view "
-//							+ activity.getClass().getName()
-//							+ " cann't be retrieved");
-//				}
-//			}
-//
-//		});
+		// mRefreshButton = (ImageView) activity.findViewById(R.id.top_refresh);
+		//		
+		//
+		// mProgressBar = (ProgressBar)
+		// activity.findViewById(R.id.progress_bar);
+		// mLoadingProgress = (ProgressBar) activity
+		// .findViewById(R.id.top_refresh_progressBar);
+		//
+		// mRefreshButton.setOnClickListener(new View.OnClickListener() {
+		//
+		// public void onClick(View v) {
+		// if (activity instanceof Refreshable) {
+		// ((Refreshable) activity).doRetrieve();
+		// } else {
+		// Log.e(TAG, "The current view "
+		// + activity.getClass().getName()
+		// + " cann't be retrieved");
+		// }
+		// }
+		//
+		// });
 
-		//TODO: 将RefreshButton隐藏，仅使用下拉刷新，简化界面
-		mRefreshButton.setVisibility(View.GONE);
+		// TODO: 将RefreshButton隐藏，仅使用下拉刷新，简化界面
+		// mRefreshButton.setVisibility(View.GONE);
 	}
 
 	/**
@@ -199,92 +176,90 @@ public class NavBar implements Widget {
 	 * @param activity
 	 */
 	private void addSearchButtonTo(final Activity activity) {
-//		mSearchButton = (ImageButton) activity.findViewById(R.id.search);
-//		mSearchButton.setOnClickListener(new View.OnClickListener() {
-//			public void onClick(View v) {
-//				startSearch(activity);
-//			}
-//		});
+		// mSearchButton = (ImageButton) activity.findViewById(R.id.search);
+		// mSearchButton.setOnClickListener(new View.OnClickListener() {
+		// public void onClick(View v) {
+		// startSearch(activity);
+		// }
+		// });
 	}
 
 	// 这个方法会在SearchActivity里重写
-//	protected boolean startSearch(final Activity activity) {
-//		Intent intent = new Intent();
-//		intent.setClass(activity, SearchActivity.class);
-//		activity.startActivity(intent);
-//		return true;
-//	}
+	// protected boolean startSearch(final Activity activity) {
+	// Intent intent = new Intent();
+	// intent.setClass(activity, SearchActivity.class);
+	// activity.startActivity(intent);
+	// return true;
+	// }
 
 	/**
 	 * 添加[搜索框]
 	 * 
 	 * @param activity
 	 */
-//	private void addSearchBoxTo(final Activity activity) {
-//		mSearchEdit = (EditText) activity.findViewById(R.id.search_edit);
-//	}
+	// private void addSearchBoxTo(final Activity activity) {
+	// mSearchEdit = (EditText) activity.findViewById(R.id.search_edit);
+	// }
 
 	/**
 	 * 添加[撰写]按钮
 	 * 
 	 * @param activity
 	 */
-//	private void addWriteButtonTo(final Activity activity) {
-//		mWriteButton = (ImageButton) activity.findViewById(R.id.writeMessage);
-//
-//		mWriteButton.setOnClickListener(new View.OnClickListener() {
-//			public void onClick(View v) {
-//				// forward to write activity
-//				Intent intent = new Intent();
-//				intent.setClass(v.getContext(), WriteActivity.class);
-//				v.getContext().startActivity(intent);
-//			}
-//		});
-//	}
+	private void addWriteButtonTo(final Activity activity) {
+		mWriteButton = (ImageButton) activity.findViewById(R.id.writeMessage);
+		mWriteButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.setClass(v.getContext(), TaskAddActivity.class);
+				v.getContext().startActivity(intent);
+			}
+		});
+	}
 
 	/**
 	 * 添加[回首页]按钮
 	 * 
 	 * @param activity
 	 */
-//	@SuppressWarnings("unused")
-//	private void addHomeButton(final Activity activity) {
-//		mHomeButton = (ImageButton) activity.findViewById(R.id.home);
-//
-//		mHomeButton.setOnClickListener(new View.OnClickListener() {
-//			public void onClick(View v) {
-//				// 动画
-//				Animation anim = AnimationUtils.loadAnimation(v.getContext(),
-//						R.anim.scale_lite);
-//				v.startAnimation(anim);
-//
-//				// forward to TwitterActivity
-//				Intent intent = new Intent();
-//				intent.setClass(v.getContext(), TwitterActivity.class);
-//				v.getContext().startActivity(intent);
-//
-//			}
-//		});
-//	}
+	// @SuppressWarnings("unused")
+	// private void addHomeButton(final Activity activity) {
+	// mHomeButton = (ImageButton) activity.findViewById(R.id.home);
+	//
+	// mHomeButton.setOnClickListener(new View.OnClickListener() {
+	// public void onClick(View v) {
+	// // 动画
+	// Animation anim = AnimationUtils.loadAnimation(v.getContext(),
+	// R.anim.scale_lite);
+	// v.startAnimation(anim);
+	//
+	// // forward to TwitterActivity
+	// Intent intent = new Intent();
+	// intent.setClass(v.getContext(), TwitterActivity.class);
+	// v.getContext().startActivity(intent);
+	//
+	// }
+	// });
+	// }
 
 	/**
 	 * 添加[返回]按钮
 	 * 
 	 * @param activity
 	 */
-//	private void addBackButtonTo(final Activity activity) {
-//		mBackButton = (Button) activity.findViewById(R.id.top_back);
-//		// 中文粗体
-//		// TextPaint tp = backButton.getPaint();
-//		// tp.setFakeBoldText(true);
-//
-//		mBackButton.setOnClickListener(new View.OnClickListener() {
-//			public void onClick(View v) {
-//				// Go back to previous activity
-//				activity.finish();
-//			}
-//		});
-//	}
+	// private void addBackButtonTo(final Activity activity) {
+	// mBackButton = (Button) activity.findViewById(R.id.top_back);
+	// // 中文粗体
+	// // TextPaint tp = backButton.getPaint();
+	// // tp.setFakeBoldText(true);
+	//
+	// mBackButton.setOnClickListener(new View.OnClickListener() {
+	// public void onClick(View v) {
+	// // Go back to previous activity
+	// activity.finish();
+	// }
+	// });
+	// }
 
 	public void destroy() {
 		// dismiss dialog before destroy

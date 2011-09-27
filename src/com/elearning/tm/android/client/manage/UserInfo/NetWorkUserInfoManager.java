@@ -13,7 +13,7 @@ public class NetWorkUserInfoManager implements IUserInfo {
 	private SharedPreferences mPreferences;
 	@Override
 	public UserInfo getCurrentUserInfo(String account, String password) {
-		TMAPI api = TMApplication.tmApi; //new TMAPI(); 是否可以单例模式在application里?
+		TMAPI api = TMApplication.tmApi; //是否可以单例模式在application里?
 		UserInfo user = api.Login(account, password);
 		
 		//初始登录将登陆信息保留在Preferences中,以后可以通过配置中的开关进行调节

@@ -6,7 +6,6 @@ import com.elearning.tm.android.client.StartPage;
 
 import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.Button;
@@ -28,16 +27,16 @@ public class FrameActivity extends TabActivity  {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.front);
+		setContentView(R.layout.footer);
 		
-		final Button concel = (Button) findViewById(R.id.title_left_button);
-		final Button submit = (Button) findViewById(R.id.title_right_button);
-		final TextView title = (TextView) findViewById(R.id.title_text);
-		concel.setText(R.string.btn_cancel);
-		submit.setText(R.string.btn_save);
-		title.setText(R.string.tasklist_title);
+//		final Button concel = (Button) findViewById(R.id.title_left_button);
+//		final Button submit = (Button) findViewById(R.id.title_right_button);
+//		final TextView title = (TextView) findViewById(R.id.title_text);
+//		concel.setText(R.string.btn_cancel);
+//		submit.setText(R.string.btn_save);
+//		title.setText(R.string.tasklist_title);
 
-		myTabhost = this.getTabHost();
+		myTabhost = (TabHost)this.findViewById(android.R.id.tabhost);//this.getTabHost();
 		group = (RadioGroup)findViewById(R.id.main_radio);
 
 		TabHost.TabSpec spec = null;
@@ -46,7 +45,6 @@ public class FrameActivity extends TabActivity  {
 		Intent task = new Intent();
 		task.setClass(this, TastListActivity.class);
 		spec = myTabhost.newTabSpec("Tag1");
-		// spec.setIndicator("Intent",getResources().getDrawable(R.drawable.tab_1));
 		spec.setIndicator("Intent1");
 		spec.setContent(task);
 		myTabhost.addTab(spec);
@@ -61,7 +59,8 @@ public class FrameActivity extends TabActivity  {
 
 		//报表
 		Intent talk = new Intent();
-		talk.setClass(this, StartPage.class);
+		//talk.setClass(this, StartPage.class);
+		talk.setClass(this, SearchResultActivity.class);
 		spec = myTabhost.newTabSpec("Tag3");
 		spec.setIndicator("Intent3");
 		spec.setContent(talk);
@@ -83,7 +82,7 @@ public class FrameActivity extends TabActivity  {
 		spec.setContent(about);
 		myTabhost.addTab(spec);
 
-		myTabhost.setCurrentTab(1);
+		myTabhost.setCurrentTab(0);
 
 		group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {

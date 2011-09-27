@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">TM-Anywhere</string>
-
+	<string name="page_label_go_back">返回</string>
+	<string name="write_label_send">发送</string>
+	<string name="cmenu_more">更多</string>
 	<string name="tasklist_title">工作计划</string>
 	<string name="huijintian">回今天</string>
 	<string name="dianjihuoqugengduo">点击获取更多...</string>
@@ -10,14 +12,16 @@
 	<string name="label_psw">密码:</string>
 	<string name="btn_signup">开通微博</string>
 	<string name="btn_signin">登录</string>
-	<string name="main_home">首页</string>
-	<string name="main_comment">评论</string>
-	<string name="main_message">私信</string>
-	<string name="main_edit">编写</string>
-	<string name="main_reload">刷新</string>
-	<string name="more">更多</string>
 	<string name="btn_cancel">取消</string>
 	<string name="btn_save">保存</string>
+
+
+	<!-- 底部Tab按钮 -->
+	<string name="main_home">首页</string>
+	<string name="main_comment">计划</string>
+	<string name="main_message">短信</string>
+	<string name="main_reload">报表</string>
+	<string name="more">更多</string>
 	<!-- Login页面 -->
 	<string name="login_label_username">TM帐号:</string>
 	<string name="login_label_password">密码:</string>
@@ -42,27 +46,18 @@
 	<string name="createtask_project_textview_text">项目名称</string>
 	<string name="createtask_project_spinner_prompt">选择项目名称</string>
 	<string name="createtask_taskcontent_textview_text">任务描述</string>
-	<string name="createtask_expectcost_textview_text">投入时间（小时）</string>
-	<string name="createtask_realcost_textview_text">实际时间（小时）</string>
+	<string name="createtask_expectcost_textview_text">投入时间</string>
+	<string name="createtask_realcost_textview_text">实际时间</string>
 	<string name="createtask_completionrate_textview_text">状态</string>
 	<string name="createtask_completionrate_spinner_prompt">状态</string>
 	<!-- 关于页面 -->
-	<string name="help_version_string">365日历 版本号：v4.6.1</string>
-	<string name="help_file">1、我们做的不是软件，而是时间服务。
-		\n2、养成好的日历使用习惯，会让您的工作效率提高几倍，节约的时间相当于寿命延长10年以上。
-		\n3、建议您同时使用电脑版的365桌面日历,两个版本的数据是同步的（电脑添加会显示在手机上，反之亦然）。</string>
-	<string name="help_file_opda">1、我们做的不是软件，而是时间服务。
-		\n2、养成好的日历使用习惯，会让您的工作效率提高几倍，节约的时间相当于寿命延长10年以上。
-		\n3、建议您同时使用电脑版的365桌面日历,两个版本的数据是同步的（电脑添加会显示在手机上，反之亦然）。 \n关于使用上的问题，请访问：
-		www.365rili.com/shoujiHelp.html \n合作伙伴，OPDA俺拽论坛： www.opda.com.cn
-		\n版本号v4.6.1</string>
-	<string name="help_file_goapk">1、我们做的不是软件，而是时间服务。
-		\n2、养成好的日历使用习惯，会让您的工作效率提高几倍，节约的时间相当于寿命延长10年以上。
-		\n3、建议您同时使用电脑版的365桌面日历,两个版本的数据是同步的（电脑添加会显示在手机上，反之亦然）。 \n关于使用上的问题，请访问：
-		www.365rili.com/shoujiHelp.html \n合作伙伴，安智网： www.goapk.com \n版本号v4.6.1
-	</string>
-
-
+	<string name="help_version_string">TM-Anywhere 版本号：v1.0.0</string>
+	<string name="help_file">逝者如斯夫，不舍昼夜 \n</string>
+	<!-- 状态条提示  -->
+	<string name="page_status_refreshing">正在获取...</string>
+	<!-- 反馈信息提示  -->
+	<string name="feedback_subject">TM客户端建议</string>
+	<string name="feedback_mail">tifancy@gmail.com</string>
 	<!-- options menu -->
 	<string name="omenu_signout">注销</string>
 	<string name="omenu_refresh">刷新</string>
@@ -71,4 +66,10 @@
 	<string name="omenu_search">搜索</string>
 	<string name="omenu_about">关于</string>
 	<string name="omenu_exit">退出</string>
+	<string name="omenu_feedback">反馈</string>
+	<!-- 下拉刷新 -->
+	<string name="pull_to_refresh_pull_label">下拉刷新...</string>
+	<string name="pull_to_refresh_release_label">松开刷新...</string>
+	<string name="pull_to_refresh_refreshing_label">读取中...</string>
+	<string name="pull_to_refresh_tap_label">点击刷新...</string>
 </resources>

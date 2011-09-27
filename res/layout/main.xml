@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="#00000000" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView  android:background="#00000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/startpage" android:scaleType="centerCrop" />
-    <TextView android:textSize="18.0dip" android:textStyle="bold" android:textColor="#ff5b3505"  android:paddingLeft="25.0dip" android:paddingRight="20.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="280.0dip" android:text="@string/startpage_title" android:layout_alignParentTop="true" />
-    <TextView android:textColor="#ff8d6316" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:text="@string/copyright" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
-</RelativeLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation='vertical'
+  android:background="@color/body_background"
+  >
+  
+    <!-- Header -->
+    <include layout="@layout/header"/>
+    
+    <!-- Main content area. -->
+    <com.markupartist.android.widget.PullToRefreshListView
+    android:id="@+id/task_list"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:cacheColorHint="#00000000"
+    android:fadingEdge="none"
+    android:fadeScrollbars="true"
+    android:divider="@drawable/dashed_line"
+    android:dividerHeight="1dip"
+    android:fastScrollEnabled="true"
+    />          
+      
+     <!-- 提示栏 : 已废弃 -->
+     <TextView
+        android:id="@+id/progress_text"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        style="@style/statusbar"
+        android:visibility="gone"
+     /> 
+     
+</LinearLayout>
+

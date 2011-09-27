@@ -9,24 +9,8 @@
 		android:layout_height="wrap_content"
 		android:textSize="11pt"
 		android:textColor="#0f0"
-		android:text="Your Pets" />
-		<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/RelativeLayoutHeader"
-	android:layout_height="wrap_content"  android:layout_width="fill_parent">
-				<TextView
-				android:id="@+id/TextView01"
-				android:layout_width="wrap_content"
-				android:layout_height="?android:attr/listPreferredItemHeight"
-				android:textColor="#f00"
-				android:text="pet_name" android:layout_alignParentLeft="true" ></TextView>
-			<TextView
-				android:id="@+id/TextView01"
-				android:layout_width="wrap_content"
-				android:layout_height="?android:attr/listPreferredItemHeight"
-				android:textColor="#f00"
-				android:text="pet_type" android:layout_alignParentRight="true"></TextView>
-</RelativeLayout>
+		android:text="工作任务" />
+
 	<ListView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -35,5 +19,5 @@
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
 		android:id="@+id/ButtonEnterMorePets"
-		android:text="Add More Pets"></Button>
+		android:text="新增任务"></Button>
 </LinearLayout>

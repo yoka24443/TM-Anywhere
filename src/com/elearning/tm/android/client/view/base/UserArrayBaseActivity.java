@@ -3,6 +3,15 @@
 //import java.util.ArrayList;
 //import java.util.List;
 //
+//import com.elearning.tm.android.client.R;
+//import com.elearning.tm.android.client.model.Paging;
+//import com.elearning.tm.android.client.model.UserInfo;
+//import com.elearning.tm.android.client.task.GenericTask;
+//import com.elearning.tm.android.client.task.TaskAdapter;
+//import com.elearning.tm.android.client.task.TaskListener;
+//import com.elearning.tm.android.client.task.TaskManager;
+//import com.elearning.tm.android.client.task.TaskResult;
+//
 //import android.os.Bundle;
 //import android.util.Log;
 //import android.view.View;
@@ -10,12 +19,11 @@
 //import android.widget.ProgressBar;
 //import android.widget.TextView;
 //
-//
-//
 //public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 //	static final String TAG = "UserArrayBaseActivity";
+//
 //	// Views.
-//	//protected PullToRefreshListView mUserList;//PullToRefresh
+//	protected PullToRefreshListView mUserList;
 //	protected ListView mUserList;
 //	protected UserArrayAdapter mUserListAdapter;
 //
@@ -25,7 +33,7 @@
 //	protected ProgressBar loadMoreGIFTop;
 //
 //	protected static int lastPosition = 0;
-// 
+//
 //	// Tasks.
 //	protected TaskManager taskManager = new TaskManager();
 //	private GenericTask mRetrieveTask;
@@ -35,20 +43,18 @@
 //	public abstract Paging getCurrentPage();// 加载
 //
 //	public abstract Paging getNextPage();// 加载
-//	// protected abstract String[] getIds();
 //
-//	protected abstract List<com.ch_linghu.fanfoudroid.fanfou.User> getUsers(
-//			String userId, Paging page) throws HttpException;
+//	protected abstract String[] getIds();
 //
-//	private ArrayList<com.ch_linghu.fanfoudroid.data.User> allUserList;
+//	protected abstract List<UserInfo> getUsers(String userId, Paging page);
+//
+//	private ArrayList<UserInfo> allUserList;
 //
 //	@Override
 //	protected boolean _onCreate(Bundle savedInstanceState) {
 //		Log.d(TAG, "onCreate.");
 //		if (super._onCreate(savedInstanceState)) {
-//
 //			doRetrieve();// 加载第一页
-//
 //			return true;
 //		} else {
 //			return false;
@@ -63,10 +69,10 @@
 //				&& mRetrieveTask.getStatus() == GenericTask.Status.RUNNING) {
 //			return;
 //		} else {
-//			
+//
 //			mRetrieveTask = new RetrieveTask();
 //			mRetrieveTask.setFeedback(mFeedback);
-//			mRetrieveTask.setListener(mRetrieveTaskListener);
+//			// mRetrieveTask.setListener(mRetrieveTaskListener);
 //			mRetrieveTask.execute();
 //
 //			// Add Task to manager
@@ -89,8 +95,8 @@
 //			} else if (result == TaskResult.OK) {
 //				draw();
 //			}
-//			//mUserList.onRefreshComplete();
-//			//mUserList.setSelection(1);
+//			mUserList.onRefreshComplete();
+//			mUserList.setSelection(1);
 //
 //			updateProgress("");
 //		}
@@ -112,15 +118,13 @@
 //	}
 //
 //	public void onRetrieveBegin() {
-//		//mUserList.prepareForRefresh();
+//		// mUserList.prepareForRefresh();
 //		updateProgress(getString(R.string.page_status_refreshing));
 //	}
 //
 //	/**
 //	 * TODO：从API获取当前Followers
-//	 * 
 //	 * @author Dino
-//	 * 
 //	 */
 //	private class RetrieveTask extends GenericTask {
 //
@@ -128,7 +132,7 @@
 //		protected TaskResult _doInBackground(TaskParams... params) {
 //			Log.d(TAG, "load RetrieveTask");
 //
-//			List<com.ch_linghu.fanfoudroid.fanfou.User> usersList = null;
+//			List<UserInfo> usersList = null;
 //			try {
 //				usersList = getUsers(getUserId(), getCurrentPage());
 //			} catch (HttpException e) {
@@ -137,7 +141,7 @@
 //			}
 //			publishProgress(SimpleFeedback.calProgressBySize(40, 20, usersList));
 //			allUserList.clear();
-//			for (com.ch_linghu.fanfoudroid.fanfou.User user : usersList) {
+//			for (UserInfo user : usersList) {
 //				if (isCancelled()) {
 //					return TaskResult.CANCELLED;
 //				}
@@ -163,11 +167,8 @@
 //	@Override
 //	protected void setupState() {
 //		setTitle(getActivityTitle());
-//
 //		mUserList = (ListView) findViewById(R.id.follower_list);
-//
 //		setupListHeader(true);
-//
 //		mUserListAdapter = new UserArrayAdapter(this);
 //		mUserList.setAdapter(mUserListAdapter);
 //		allUserList = new ArrayList<com.ch_linghu.fanfoudroid.data.User>();
@@ -189,7 +190,7 @@
 //		// position = position - 1;
 //		Log.d(TAG, "list position:" + position);
 //		// 加入footer跳过footer
-//		if (position >=0 && position < mUserListAdapter.getCount()) {
+//		if (position >= 0 && position < mUserListAdapter.getCount()) {
 //
 //			User item = (User) mUserListAdapter.getItem(position);
 //			if (item == null) {
@@ -202,13 +203,9 @@
 //		}
 //	}
 //
-//	/**
-//	 * TODO:不知道啥用
-//	 */
 //	@Override
 //	protected void updateTweet(Tweet tweet) {
 //		// TODO Auto-generated method stub
-//
 //	}
 //
 //	@Override
@@ -217,7 +214,7 @@
 //	}
 //
 //	@Override
-//	protected TweetAdapter getUserAdapter() {
+//	protected TmAdapter getUserAdapter() {
 //		return mUserListAdapter;
 //	}
 //
@@ -225,18 +222,16 @@
 //	 * 绑定listView底部 - 载入更多 NOTE: 必须在listView#setAdapter之前调用
 //	 */
 //	protected void setupListHeader(boolean addFooter) {
-//
-//		// Add footer to Listview
 //		View footer = View.inflate(this, R.layout.listview_footer, null);
 //		mUserList.addFooterView(footer, null, true);
-////		mUserList.setOnRefreshListener(new OnRefreshListener() {
-////
-////			@Override
-////			public void onRefresh() {
-////				doRetrieve();
-////
-////			}
-////		});
+//		mUserList.setOnRefreshListener(new OnRefreshListener() {
+//
+//			@Override
+//			public void onRefresh() {
+//				doRetrieve();
+//
+//			}
+//		});
 //		// Find View
 //		loadMoreBtn = (TextView) findViewById(R.id.ask_for_more);
 //		loadMoreGIF = (ProgressBar) findViewById(R.id.rectangleProgressBar);
@@ -287,16 +282,14 @@
 //
 //	/**
 //	 * TODO:需要重写,获取下一批用户,按页分100页一次
-//	 * 
 //	 * @author Dino
-//	 * 
 //	 */
 //	private class GetMoreTask extends GenericTask {
 //		@Override
 //		protected TaskResult _doInBackground(TaskParams... params) {
 //			Log.d(TAG, "load RetrieveTask");
 //
-//			List<com.ch_linghu.fanfoudroid.fanfou.User> usersList = null;
+//			List<UserInfo> usersList = null;
 //			try {
 //				usersList = getUsers(getUserId(), getNextPage());
 //				mFeedback.update(60);
@@ -308,7 +301,7 @@
 //			getDb().syncWeiboUsers(usersList);
 //
 //			mFeedback.update(100 - (int) Math.floor(usersList.size() * 2));
-//			for (com.ch_linghu.fanfoudroid.fanfou.User user : usersList) {
+//			for (UserInfo user : usersList) {
 //				if (isCancelled()) {
 //					return TaskResult.CANCELLED;
 //				}

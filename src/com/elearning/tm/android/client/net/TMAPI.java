@@ -1,7 +1,7 @@
 package com.elearning.tm.android.client.net;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,22 +84,21 @@ public class TMAPI {
 			Date endDate) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put("uid", uid);
-		parms.put("beginDate", beginDate.toLocaleString());
-		parms.put("endDate", endDate.toLocaleString());
-		
-		SoapObject soap = getSoapObjectResponse("QueryUserTaskList", parms);
-		SoapObject so = (SoapObject) soap.getProperty("diffgram");
-		SoapObject doc = (SoapObject) so.getProperty("DocumentElement");
+		parms.put("beginDate", "2011-09-02");
+		parms.put("endDate", "2011-09-26");
 		
 		List<TaskInfo> list = new ArrayList<TaskInfo>();
-		int elementCount = doc.getPropertyCount();
-		for (int i = 0; i < elementCount; i++) {
-			TaskInfo pi = new TaskInfo();
-			SoapObject table = (SoapObject) doc.getProperty(i);
-			BeanRefUtil.setFieldValueBySoapObject(pi, table);
-			list.add(pi);
+		SoapObject soap = getSoapObjectResponse("QueryUserTaskList", parms);
+		if(soap != null){
+			
+			int elementCount = soap.getPropertyCount();
+			for (int i = 0; i < elementCount; i++) {
+				TaskInfo pi = new TaskInfo();
+				SoapObject table = (SoapObject) soap.getProperty(i);
+				BeanRefUtil.setFieldValueBySoapObject(pi, table);
+				list.add(pi);
+			}
 		}
-		
 		return list;
 	}
 

@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.UUID;
 
 import android.content.Context;
-
 import com.elearning.tm.android.client.data.DatabaseHelper;
 import com.elearning.tm.android.client.model.ProjectInfo;
+
 
 
 
@@ -27,10 +27,6 @@ public class ProjectInfoDao {
 		return dbInstance;
 	}
 	
-//	public ProjectInfo queryForId(UUID id) {
-//		return dbInstance.getDao(ProjectInfo.class).queryForId(id);
-//	}
-	
 	public List<ProjectInfo> queryForAll() {
 		List<ProjectInfo> list = null;
 		try {
@@ -49,6 +45,16 @@ public class ProjectInfoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return list;
+	}
+	
+	public List<ProjectInfo> queryBySql(String sqlString, String[] value) {
+		List<ProjectInfo> list = null;
+//		try {
+//			//list = dbInstance.getDao(ProjectInfo.class).queryRaw(sqlString, value);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		return list;
 	}
 

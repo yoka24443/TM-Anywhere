@@ -19,6 +19,12 @@
 //import java.util.Arrays;
 //import java.util.List;
 //
+//import com.elearning.tm.android.client.model.TaskInfo;
+//import com.elearning.tm.android.client.task.GenericTask;
+//import com.elearning.tm.android.client.task.TaskListener;
+//import com.elearning.tm.android.client.task.TaskManager;
+//import com.markupartist.android.widget.PullToRefreshListView;
+//
 //import android.content.SharedPreferences;
 //import android.database.Cursor;
 //import android.os.Bundle;
@@ -29,7 +35,6 @@
 //import android.widget.ListView;
 //import android.widget.ProgressBar;
 //import android.widget.TextView;
-//
 //
 //
 ///**
@@ -52,8 +57,6 @@
 //
 //    protected static int lastPosition = 0;
 //
-//    protected ShakeListener mShaker = null;
-//    
 //    // Tasks.
 //    protected TaskManager taskManager = new TaskManager();
 //    private GenericTask mRetrieveTask;
@@ -100,15 +103,7 @@
 //                } else if (task == mGetMoreTask) {
 //                    mFeedback.failed(((GetMoreTask) task).getErrorMsg());
 //                }
-//            } else {
-//                // do nothing
-//            }
-//            
-//            // DEBUG
-//            if (TMApplication.DEBUG) {
-//                DebugTimer.stop();
-//                Log.v("DEBUG", DebugTimer.getProfileAsString());
-//            }
+//            } 
 //        }
 //
 //        @Override
@@ -256,7 +251,7 @@
 //    }
 //
 //    @Override
-//    protected TweetAdapter getTweetAdapter() {
+//    protected TweetAdapter getTaskAdapter() {
 //        return mTweetAdapter;
 //    }
 //
@@ -266,7 +261,7 @@
 //    }
 //
 //    @Override
-//    protected Tweet getContextItemTweet(int position) {
+//    protected TaskInfo getContextItemTask(int position) {
 //        position = position - 1;
 //        // 因为List加了Header和footer，所以要跳过第一个以及忽略最后一个
 //        if (position >= 0 && position < mTweetAdapter.getCount()) {
@@ -282,16 +277,8 @@
 //    }
 //
 //    @Override
-//    protected void updateTweet(Tweet tweet) {
-//        // TODO: updateTweet() 在哪里调用的? 目前尚只支持:
-//        // updateTweet(String tweetId, ContentValues values)
-//        // setFavorited(String tweetId, String isFavorited)
-//        // 看是否还需要增加updateTweet(Tweet tweet)方法
+//    protected void updateTask(TaskInfo task) {
 //
-//        // 对所有相关表的对应消息都进行刷新（如果存在的话）
-//        // getDb().updateTweet(TwitterDbAdapter.TABLE_FAVORITE, tweet);
-//        // getDb().updateTweet(TwitterDbAdapter.TABLE_MENTION, tweet);
-//        // getDb().updateTweet(TwitterDbAdapter.TABLE_TWEET, tweet);
 //    }
 //
 //    @Override
@@ -620,64 +607,4 @@
 //            taskManager.addTask(mGetMoreTask);
 //        }
 //    }
-//    
-//    
-//    //////////////////// Gesture test /////////////////////////////////////
-//    private static boolean useGestrue;
-//    {
-//        useGestrue = TMApplication.mPref.getBoolean(
-//                Preferences.USE_GESTRUE, false);
-//        if (useGestrue) {
-//            Log.v(TAG, "Using Gestrue!");
-//        } else {
-//            Log.v(TAG, "Not Using Gestrue!");
-//        }
-//    }
-//    
-//    //////////////////// Gesture test /////////////////////////////////////
-//    private static boolean useShake;
-//    {
-//        useShake = TMApplication.mPref.getBoolean(
-//                Preferences.USE_SHAKE, false);
-//        if (useShake) {
-//            Log.v(TAG, "Using Shake to refresh!");
-//        } else {
-//            Log.v(TAG, "Not Using Shake!");
-//        }
-//    }
-//    
-//    
-//    protected FlingGestureListener myGestureListener = null;
-//
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        if (useGestrue && myGestureListener != null) {
-//            return myGestureListener.getDetector().onTouchEvent(event);
-//        }
-//        return super.onTouchEvent(event);
-//    }
-//
-//    // use it in _onCreate
-//    private void registerGestureListener() {
-//        if (useGestrue) {
-//            myGestureListener = new FlingGestureListener(this,
-//                    MyActivityFlipper.create(this));
-//            getTweetList().setOnTouchListener(myGestureListener);
-//        }
-//    }
-//    
-//    // use it in _onCreate
-//    private void registerShakeListener() {
-//    	if (useShake){
-//	    	mShaker = new ShakeListener(this);
-//	    	mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
-//				
-//				@Override
-//				public void onShake() {
-//					Log.v(TAG, "onShake");
-//					doRetrieve();
-//				}
-//			});
-//    	}
-//	}    
 //}
