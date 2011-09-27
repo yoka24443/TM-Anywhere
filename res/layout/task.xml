@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/task_layout" 
+	android:orientation="horizontal" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" android:padding="5dp">
+
+	<LinearLayout android:orientation="vertical" 
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+		<LinearLayout android:orientation="horizontal"
+			android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<!-- project name -->
+			<com.elearning.tm.android.client.view.module.MyTextView
+				android:id="@+id/task_project_text" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:layout_weight="1"
+				style="@style/LinkText.Bold.Big" />
+		</LinearLayout>
+
+		<!-- Task context -->
+		<com.elearning.tm.android.client.view.module.MyTextView
+			android:id="@+id/task_content_text" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:textColor="@drawable/tweet_color"
+			android:lineSpacingExtra="2sp" />
+
+		<!-- Task info -->
+		<TextView android:id="@+id/task_meta_text"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:paddingTop="2dp" android:textColor="@drawable/tweet_meta_color"
+			android:textSize="12sp" />
+
+	</LinearLayout>
+
+</LinearLayout>

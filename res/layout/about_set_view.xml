@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@+id/layout" android:background="@drawable/mid_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" >
+        <RelativeLayout android:gravity="center_vertical" android:id="@+id/rellayout1" android:background="@drawable/setup_bg_top" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="5.0dip">
+            <TextView android:textSize="16.0dip" android:textStyle="bold" android:textColor="#ff717171" android:id="@+id/start_oldpasswd_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="操作说明" />
+        </RelativeLayout>
+        <RelativeLayout android:gravity="center_vertical" android:id="@+id/rellayout2" android:background="@drawable/setup_bg_mid" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip">
+            <TextView android:textSize="16.0dip" android:textStyle="bold" android:textColor="#ff717171" android:id="@+id/start_passwd_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="数据同步" />
+        </RelativeLayout>
+         <RelativeLayout android:gravity="center_vertical" android:id="@+id/rellayout3" android:background="@drawable/setup_bg_mid" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip">
+            <TextView android:textSize="16.0dip" android:textStyle="bold" android:textColor="#ff717171" android:id="@+id/start_passwd_text1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="软件更新" />
+        </RelativeLayout>
+        <RelativeLayout android:gravity="center_vertical" android:id="@+id/rellayout4" android:background="@drawable/setup_bg_down" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip">
+            <TextView android:textSize="16.0dip" android:textStyle="bold" android:textColor="#ff717171" android:id="@+id/start_repasswd_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="项目相关" />
+        </RelativeLayout>
+    </LinearLayout>
+    <ImageView android:id="@+id/main_background" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</RelativeLayout>
