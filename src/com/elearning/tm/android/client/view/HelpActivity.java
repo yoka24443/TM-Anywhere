@@ -11,7 +11,7 @@ public class HelpActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		super.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		super.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.help);
 		
 		final WebView wv = (WebView) findViewById(R.id.help_webview);

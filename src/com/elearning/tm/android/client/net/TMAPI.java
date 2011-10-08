@@ -63,19 +63,37 @@ public class TMAPI {
 		BeanRefUtil.setFieldValueBySoapObject(user, soap);
 		return user;
 	}
+	
+	public List<UserInfo> QueryUserList(String userName, int pageIndex, int pageSize) {
+		Map<String, String> parms = new HashMap<String, String>();
+		parms.put("userName", userName);
+		parms.put("pageIndex", String.valueOf(pageIndex));
+		parms.put("pageSize", String.valueOf(pageSize));
+		SoapObject soap = getSoapObjectResponse("SearchUserList", parms);
+		List<UserInfo> list = new ArrayList<UserInfo>();
+		int elementCount = soap.getPropertyCount();
+		for (int i = 0; i < elementCount; i++) {
+			UserInfo pi = new UserInfo();
+			SoapObject table = (SoapObject) soap.getProperty(i);
+			BeanRefUtil.setFieldValueBySoapObject(pi, table);
+			list.add(pi);
+		}
+		return list;
+	}
 
 	public List<ProjectInfo> QueryProjectList() {
 		SoapObject soap = getSoapObjectResponse("QueryProjectList", null);
-		SoapObject so = (SoapObject) soap.getProperty("diffgram");
-		SoapObject doc = (SoapObject) so.getProperty("DocumentElement");
-		
 		List<ProjectInfo> list = new ArrayList<ProjectInfo>();
-		int elementCount = doc.getPropertyCount();
-		for (int i = 0; i < elementCount; i++) {
-			ProjectInfo pi = new ProjectInfo();
-			SoapObject table = (SoapObject) doc.getProperty(i);
-			BeanRefUtil.setFieldValueBySoapObject(pi, table);
-			list.add(pi);
+		if(soap != null){
+			SoapObject so = (SoapObject) soap.getProperty("diffgram");
+			SoapObject doc = (SoapObject) so.getProperty("DocumentElement");
+			int elementCount = doc.getPropertyCount();
+			for (int i = 0; i < elementCount; i++) {
+				ProjectInfo pi = new ProjectInfo();
+				SoapObject table = (SoapObject) doc.getProperty(i);
+				BeanRefUtil.setFieldValueBySoapObject(pi, table);
+				list.add(pi);
+			}
 		}
 		return list;
 	}

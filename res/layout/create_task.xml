@@ -10,16 +10,12 @@
 
 		<LinearLayout android:orientation="vertical"
 			android:layout_width="fill_parent" android:layout_height="fill_parent">
-
-
 			<TextView android:id="@+id/createtask_project_textview"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:text="@string/createtask_project_textview_text" />
 			<Spinner android:id="@+id/createtask_project_spinner"
 				android:layout_width="fill_parent" android:layout_height="wrap_content"
 				android:prompt="@string/createtask_project_spinner_prompt" />
-			<TextView android:layout_height="1.0px"
-				style="?android:attr/listSeparatorTextViewStyle" />
 
 			<TextView android:id="@+id/createtask_subtasktype_textview"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -27,8 +23,6 @@
 			<Spinner android:id="@+id/createtask_subtasktype_spinner"
 				android:layout_width="fill_parent" android:layout_height="wrap_content"
 				android:prompt="@string/createtask_subtasktype_spinner_prompt" />
-			<TextView android:layout_height="1.0px"
-				style="?android:attr/listSeparatorTextViewStyle" />
 
 			<TextView android:id="@+id/createtask_tasktype_textview"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -41,7 +35,6 @@
 			<RelativeLayout android:gravity="center_vertical"
 				android:id="@+id/createtask_date_linearLayout" android:layout_width="fill_parent"
 				android:layout_height="fill_parent">
-
 				<TextView android:id="@+id/createtask_begindate_textview"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:text="@string/createtask_begindate_textview_text"
@@ -59,7 +52,6 @@
 					android:text="@string/createtask_enddate_textview_text"
 					android:layout_toLeftOf="@id/createtask_enddate_button"
 					android:layout_margin="5dp" />
-
 			</RelativeLayout>
 
 			<TextView android:id="@+id/createtask_taskcontent_textview"
@@ -93,7 +85,6 @@
 					android:text="@string/createtask_realcost_textview_text"
 					android:layout_toLeftOf="@id/createtask_realcost_edittext"
 					android:layout_margin="5dp" />
-
 			</RelativeLayout>
 
 			<TextView android:id="@+id/createtask_completionrate_textview"
@@ -102,8 +93,6 @@
 			<Spinner android:id="@+id/createtask_completionrate_spinner"
 				android:layout_width="fill_parent" android:layout_height="wrap_content"
 				android:prompt="@string/createtask_completionrate_spinner_prompt" />
-			<TextView android:layout_height="1.0px"
-				style="?android:attr/listSeparatorTextViewStyle" />
 		</LinearLayout>
 
 	</ScrollView>

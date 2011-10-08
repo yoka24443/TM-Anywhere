@@ -7,18 +7,13 @@ import android.graphics.drawable.AnimationDrawable;
 import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.elearning.tm.android.client.R;
 import com.elearning.tm.android.client.view.TaskAddActivity;
-import com.elearning.tm.android.client.view.base.Refreshable;
 
 public class NavBar implements Widget {
 	private static final String TAG = "NavBar";
@@ -27,12 +22,16 @@ public class NavBar implements Widget {
 	public static final int HEADER_STYLE_WRITE = 2;
 	public static final int HEADER_STYLE_BACK = 3;
 	public static final int HEADER_STYLE_SEARCH = 4;
+	public static final int HEADER_STYLE_TITLE = 5;
+	public static final int HEADER_STYLE_CALENDER = 6;
 
+	
+	
 	private ImageView mRefreshButton;
 	private ImageButton mSearchButton;
 	private ImageButton mWriteButton;
 	private TextView mTitleButton;
-	private Button mBackButton;
+	private ImageButton mBackButton;
 	private ImageButton mHomeButton;
 	private MenuDialog mDialog;
 	private EditText mSearchEdit;
@@ -54,18 +53,26 @@ public class NavBar implements Widget {
 			addWriteButtonTo(activity);
 			break;
 		case HEADER_STYLE_BACK:
-			// addBackButtonTo(activity);
+			addTitleButtonTo(activity);
+			addBackButtonTo(activity);
 			// addWriteButtonTo(activity);
-			addSearchButtonTo(activity);
-			addRefreshButtonTo(activity);
+			// addSearchButtonTo(activity);
+			// addRefreshButtonTo(activity);
 			break;
 		case HEADER_STYLE_WRITE:
-			// addBackButtonTo(activity);
+			 addBackButtonTo(activity);
 			break;
 		case HEADER_STYLE_SEARCH:
 			// addBackButtonTo(activity);
 			// addSearchBoxTo(activity);
 			addSearchButtonTo(activity);
+			break;
+		case HEADER_STYLE_TITLE:
+			addTitleButtonTo(activity);
+			break;
+		case HEADER_STYLE_CALENDER:
+			addTitleButtonTo(activity);
+			addWriteButtonTo(activity);
 			break;
 		}
 	}
@@ -247,19 +254,14 @@ public class NavBar implements Widget {
 	 * 
 	 * @param activity
 	 */
-	// private void addBackButtonTo(final Activity activity) {
-	// mBackButton = (Button) activity.findViewById(R.id.top_back);
-	// // 中文粗体
-	// // TextPaint tp = backButton.getPaint();
-	// // tp.setFakeBoldText(true);
-	//
-	// mBackButton.setOnClickListener(new View.OnClickListener() {
-	// public void onClick(View v) {
-	// // Go back to previous activity
-	// activity.finish();
-	// }
-	// });
-	// }
+	private void addBackButtonTo(final Activity activity) {
+		mBackButton = (ImageButton) activity.findViewById(R.id.top_back);
+		mBackButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				activity.finish();
+			}
+		});
+	}
 
 	public void destroy() {
 		// dismiss dialog before destroy
@@ -296,7 +298,7 @@ public class NavBar implements Widget {
 		return mTitleButton;
 	}
 
-	public Button getBackButton() {
+	public ImageButton getBackButton() {
 		return mBackButton;
 	}
 

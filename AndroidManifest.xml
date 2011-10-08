@@ -21,7 +21,7 @@
 			android:launchMode="singleTask">
 		</activity>
 		<!--任务列表-->
-		<activity android:name=".view.TastListActivity"
+		<activity android:name=".view.TMActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
@@ -45,29 +45,33 @@
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
-		<!--测试任务列表-->
-		<activity android:name=".view.WorkListActivity"
+		<activity android:name=".view.SearchActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
 		<!--测试任务列表2-->
-		<activity android:name=".view.ExListView"
+		<activity android:name=".view.ContactActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
-		<!--测试任务列表2-->
-		<activity android:name=".view.TaskExListView"
+		<!--日历-->
+		<activity android:name=".view.module.BaseCalendar"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
-			<!--测试任务列表3-->
-		<activity android:name=".view.SearchResultActivity"
+		<!--更新界面-->
+		<activity android:name=".view.UpdateActivity"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
+			android:launchMode="singleTask">
+		</activity>
+			<!--数据同步-->
+		<activity android:name=".view.SyncActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
 	</application>
 	<uses-sdk android:minSdkVersion="8" />
-
+	<uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 

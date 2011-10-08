@@ -1,17 +1,15 @@
 package com.elearning.tm.android.client.view;
 
 import com.elearning.tm.android.client.R;
-import com.elearning.tm.android.client.StartPage;
+import com.elearning.tm.android.client.view.module.BaseCalendar;
 
 
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class FrameActivity extends TabActivity  {
@@ -43,7 +41,7 @@ public class FrameActivity extends TabActivity  {
 
 		//首页
 		Intent task = new Intent();
-		task.setClass(this, TastListActivity.class);
+		task.setClass(this, TMActivity.class);
 		spec = myTabhost.newTabSpec("Tag1");
 		spec.setIndicator("Intent1");
 		spec.setContent(task);
@@ -51,7 +49,7 @@ public class FrameActivity extends TabActivity  {
 
 		//添加任务
 		Intent calender = new Intent();
-		calender.setClass(this, TaskAddActivity.class);
+		calender.setClass(this, BaseCalendar.class);
 		spec = myTabhost.newTabSpec("Tag2");
 		spec.setIndicator("Intent2");
 		spec.setContent(calender);
@@ -60,7 +58,8 @@ public class FrameActivity extends TabActivity  {
 		//报表
 		Intent talk = new Intent();
 		//talk.setClass(this, StartPage.class);
-		talk.setClass(this, SearchResultActivity.class);
+//		talk.setClass(this, TastListActivity.class);
+		talk.setClass(this, SearchActivity.class);
 		spec = myTabhost.newTabSpec("Tag3");
 		spec.setIndicator("Intent3");
 		spec.setContent(talk);
@@ -68,7 +67,7 @@ public class FrameActivity extends TabActivity  {
 
 		//发送短信
 		Intent report = new Intent();
-		report.setClass(this, ExListView.class);
+		report.setClass(this, ContactActivity.class);
 		spec = myTabhost.newTabSpec("Tag4");
 		spec.setIndicator("Intent4");
 		spec.setContent(report);

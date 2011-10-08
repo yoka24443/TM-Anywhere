@@ -7,15 +7,16 @@
   >
   
     <!-- Header -->
-      <include layout="@layout/header"/> 
+      <include layout="@layout/header_title"/> 
     
     <!-- Main content area. -->
-	    <com.elearning.tm.android.client.view.module
+	    <com.elearning.tm.android.client.view.module.MyListView
 	    android:id="@+id/follower_list"
 	    android:layout_width="fill_parent"
 	    android:layout_height="0dp"
 	    android:layout_weight="1"
 	    android:cacheColorHint="#00000000"
+	    android:fadingEdge="none"
 	    android:fadeScrollbars="true"
 	    android:divider="@drawable/dashed_line"
 	    android:dividerHeight="1dip"

@@ -14,4 +14,7 @@
     <dimen name="widget_logo_size">35.0dip</dimen>
     <dimen name="title_height">74.0dip</dimen>
     <dimen name="new_blog_size">70.0dip</dimen>
+     <dimen name="TitleTextSize">18.0dip</dimen>
+      <dimen name="SmallTextSize">14.0dip</dimen>
+      <dimen name="BasicTextSize">15.0dip</dimen>
 </resources>

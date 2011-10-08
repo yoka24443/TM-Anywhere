@@ -1,7 +1,6 @@
 package com.elearning.tm.android.client;
 
 import com.elearning.tm.android.client.view.FrameActivity;
-import com.elearning.tm.android.client.view.TastListActivity;
 
 import android.app.Activity;
 import android.content.Intent;

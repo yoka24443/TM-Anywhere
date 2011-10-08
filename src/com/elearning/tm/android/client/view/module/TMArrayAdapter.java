@@ -12,7 +12,6 @@ import com.elearning.tm.android.client.R;
 import com.elearning.tm.android.client.model.TaskInfo;
 
 
-
 public class TMArrayAdapter extends BaseAdapter implements TmAdapter {
 	private static final String TAG = "TMArrayAdapter";
 
@@ -115,7 +114,7 @@ public class TMArrayAdapter extends BaseAdapter implements TmAdapter {
 	}
 	
 	public void refresh(ArrayList<TaskInfo> tasks) {
-		tasks = tasks;
+		tasks = (ArrayList<TaskInfo>) tasks.clone();
 		notifyDataSetChanged();
 	}
 
