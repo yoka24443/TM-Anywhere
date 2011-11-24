@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/layout" android:background="@drawable/mid_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/title_bar">
+        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#ff6a3203" android:gravity="center_vertical" android:id="@+id/detail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="10.0dip" android:text="@string/google_sync_help" />
+        <RelativeLayout android:id="@+id/sync"  android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="5.0dip">
+           	<Button  android:id="@+id/btn_sync" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textColor="@color/mm_style_one_btn_text"  android:background="@drawable/btn_style_one"  android:textSize="18.0dip"   android:text="@string/google_syn"  />
+        </RelativeLayout>
+    </LinearLayout>
+    <include android:id="@+id/title_bar" layout="@layout/header_back" />
+</RelativeLayout>

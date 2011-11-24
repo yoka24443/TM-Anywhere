@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout android:orientation="vertical"
+	android:background="@drawable/mid_bg" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+	<include android:id="@+id/title_bar" layout="@layout/header_calender" />
+	 <RelativeLayout android:gravity="center" android:id="@+id/nav" android:background="@drawable/nav_bg" android:layout_width="fill_parent" android:layout_height="48.0dip">
+        <Button android:gravity="center" android:id="@+id/title_left_button" android:background="#00000000" android:layout_width="50.0dip" android:layout_height="fill_parent" android:layout_marginLeft="45.0dip" android:layout_marginRight="5.0dip" android:layout_alignParentLeft="true" />
+        <Button android:gravity="center" android:id="@+id/title_right_button" android:background="#00000000" android:layout_width="50.0dip" android:layout_height="fill_parent" android:layout_marginLeft="5.0dip" android:layout_marginRight="45.0dip" android:layout_alignParentRight="true" />
+        <Button android:textSize="16.659973dip" android:textStyle="bold" android:textColor="#ff59595b" android:gravity="center" android:id="@+id/title_center_button" android:background="#00000000" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_toLeftOf="@id/title_right_button" android:layout_toRightOf="@id/title_left_button" />
+        <Button android:textSize="12.0dip" android:textColor="#ff5a93e9" android:gravity="center" android:id="@+id/back_to_today_button" android:background="#00000000" android:visibility="gone" android:layout_width="45.0dip" android:layout_height="fill_parent" android:text="回本月" android:layout_alignParentRight="true" />
+    </RelativeLayout>
+	<LinearLayout android:id="@+id/month_grid"
+		android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="fill_parent"></LinearLayout>
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false" android:drawable="@drawable/setup_button_bg" />
+    <item android:state_pressed="true" android:drawable="@drawable/setup_button_bg_h" />
+    <item android:state_window_focused="false" android:drawable="@drawable/setup_button_bg" />
+</selector>

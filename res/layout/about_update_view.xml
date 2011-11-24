@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@+id/update_layout" android:background="@drawable/mid_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/title_bar">
+        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="10.0dip">
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="#ff181712" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/update_title" />
+            <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="#ff544238" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="@string/update_soft_content" />
+            <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="#ff181712" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="@string/update_title2" />
+            <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="#ff009dd7" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="@string/indexurl" />
+        </LinearLayout>
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="30.0dip">
+            <RelativeLayout android:id="@+id/get_update" android:paddingBottom="3.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_centerInParent="true">
+               	<Button  android:id="@+id/btn_update" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textColor="@color/mm_style_one_btn_text"  android:background="@drawable/btn_style_one"  android:textSize="18.0dip"   android:text="@string/get_update"  />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <include android:id="@+id/title_bar" layout="@layout/header_back" />
+</RelativeLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout android:gravity="center_horizontal" android:background="@drawable/mid_bg" android:id="@+id/calendar_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:isScrollContainer="false"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <GridView android:gravity="center" android:id="@+id/DayOfWeekGrid" android:background="#ffbbbbbb" android:paddingLeft="1.0px" android:paddingRight="1.0px" android:focusable="false" android:scrollbars="none" android:fadingEdge="none" android:layout_width="477.0px" android:layout_height="wrap_content" android:horizontalSpacing="1.0px" android:verticalSpacing="1.0px" android:numColumns="7" android:layout_centerHorizontal="true" />
+    <GridView android:gravity="center" android:id="@+id/myGrid" android:background="#ffbbbbbb" android:padding="1.0px" android:focusable="false" android:scrollbars="none" android:fadingEdge="none" android:layout_width="477.0px" android:layout_height="wrap_content" android:horizontalSpacing="1.0px" android:verticalSpacing="1.0px" android:stretchMode="columnWidth" android:numColumns="7" android:layout_below="@id/DayOfWeekGrid" android:layout_centerHorizontal="true" />
+</RelativeLayout>
