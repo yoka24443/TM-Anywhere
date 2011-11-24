@@ -13,26 +13,31 @@ import com.elearning.tm.android.client.util.EncryptHelper;
 public class NetWorkUserInfoManager implements IUserInfo {
 
 	private SharedPreferences mPreferences;
-	TMAPI api = TMApplication.tmApi; //是否可以单例模式在application里?
+	TMAPI api = TMApplication.tmApi; // 是否可以单例模式在application里?
+
 	@Override
 	public UserInfo getCurrentUserInfo(String account, String password) {
 		UserInfo user = api.Login(account, password);
-		//初始登录将登陆信息保留在Preferences中,以后可以通过配置中的开关进行调节
-		if(user != null){
+		// 初始登录将登陆信息保留在Preferences中,以后可以通过配置中的开关进行调节
+		if (user != null) {
 			mPreferences = TMApplication.tmPref;
 			SharedPreferences.Editor editor = mPreferences.edit();
 			editor.putString(Preferences.USERNAME_KEY, account);
 
-			editor.putString(Preferences.PASSWORD_KEY,EncryptHelper.encryptPassword(password));
+			editor.putString(Preferences.PASSWORD_KEY, EncryptHelper
+					.encryptPassword(password));
 			// add 存储当前用户的id
-			editor.putString(Preferences.CURRENT_USER_ID, user.getUserID().toString());
+			editor.putString(Preferences.CURRENT_USER_ID, user.getUserID()
+					.toString());
 			editor.commit();
 		}
 		return user;
 	}
-	
-	public List<UserInfo> getUserList(int pageIndex, int pageSize){
-		List<UserInfo> list = api.QueryUserList("", pageIndex, pageSize);
+
+	public List<UserInfo> getUserList(String user, int pageIndex, int pageSize) {
+		if (user == null && user.contentEquals("搜索姓名"))
+			user = "";
+		List<UserInfo> list = api.QueryUserList(user, pageIndex, pageSize);
 		return list;
 	}
 

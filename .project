@@ -3,6 +3,7 @@
 	<name>TM-Anywhere</name>
 	<comment></comment>
 	<projects>
+		<project>AChartEngine</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

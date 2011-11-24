@@ -40,7 +40,7 @@ public class TMAPI {
 			envelope.bodyOut = rpc;
 			envelope.dotNet = true;
 			envelope.setOutputSoapObject(rpc);
-			
+
 			String soapAction = NAMESPACE + methodName;
 			ht.call(soapAction, envelope);
 
@@ -52,19 +52,20 @@ public class TMAPI {
 		return detail;
 	}
 
-	public  UserInfo Login(String userName, String passWord) {
+	public UserInfo Login(String userName, String passWord) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put("userName", userName);
 		parms.put("passWord", passWord);
 
 		SoapObject soap = getSoapObjectResponse("Login", parms);
 		UserInfo user = new UserInfo();
-		if(soap != null)
-		BeanRefUtil.setFieldValueBySoapObject(user, soap);
+		if (soap != null)
+			BeanRefUtil.setFieldValueBySoapObject(user, soap);
 		return user;
 	}
-	
-	public List<UserInfo> QueryUserList(String userName, int pageIndex, int pageSize) {
+
+	public List<UserInfo> QueryUserList(String userName, int pageIndex,
+			int pageSize) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put("userName", userName);
 		parms.put("pageIndex", String.valueOf(pageIndex));
@@ -84,7 +85,7 @@ public class TMAPI {
 	public List<ProjectInfo> QueryProjectList() {
 		SoapObject soap = getSoapObjectResponse("QueryProjectList", null);
 		List<ProjectInfo> list = new ArrayList<ProjectInfo>();
-		if(soap != null){
+		if (soap != null) {
 			SoapObject so = (SoapObject) soap.getProperty("diffgram");
 			SoapObject doc = (SoapObject) so.getProperty("DocumentElement");
 			int elementCount = doc.getPropertyCount();
@@ -98,17 +99,17 @@ public class TMAPI {
 		return list;
 	}
 
-	public List<TaskInfo> QueryUserTaskList(String uid, Date beginDate,
-			Date endDate) {
+	public List<TaskInfo> QueryUserTaskList(String uid, int pageIndex,
+			int pageSize) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put("uid", uid);
-		parms.put("beginDate", "2011-09-02");
-		parms.put("endDate", "2011-09-26");
-		
+		parms.put("pageIndex", String.valueOf(pageIndex));
+		parms.put("pageSize", String.valueOf(pageSize));
+
 		List<TaskInfo> list = new ArrayList<TaskInfo>();
 		SoapObject soap = getSoapObjectResponse("QueryUserTaskList", parms);
-		if(soap != null){
-			
+		if (soap != null) {
+
 			int elementCount = soap.getPropertyCount();
 			for (int i = 0; i < elementCount; i++) {
 				TaskInfo pi = new TaskInfo();
@@ -124,7 +125,7 @@ public class TMAPI {
 		SoapObject soap = getSoapObjectResponse("QueryProjectWBS", null);
 		SoapObject so = (SoapObject) soap.getProperty("diffgram");
 		SoapObject doc = (SoapObject) so.getProperty("DocumentElement");
-		
+
 		List<TaskWBS> list = new ArrayList<TaskWBS>();
 		int elementCount = doc.getPropertyCount();
 		for (int i = 0; i < elementCount; i++) {
@@ -139,19 +140,91 @@ public class TMAPI {
 	public List<TaskWBS> QueryProjectWBSByPID(String pid) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put("pid", pid);
-		
+
 		SoapObject soap = getSoapObjectResponse("QueryProjectWBSByPID", parms);
 		SoapObject so = (SoapObject) soap.getProperty("diffgram");
 		SoapObject doc = (SoapObject) so.getProperty("DocumentElement");
-		
+
 		List<TaskWBS> list = new ArrayList<TaskWBS>();
 		int elementCount = doc.getPropertyCount();
 		for (int i = 0; i < elementCount; i++) {
 			TaskWBS pi = new TaskWBS();
 			SoapObject table = (SoapObject) doc.getProperty(i);
-			com.elearning.tm.android.client.util.BeanRefUtil.setFieldValueBySoapObject(pi, table);
+			com.elearning.tm.android.client.util.BeanRefUtil
+					.setFieldValueBySoapObject(pi, table);
 			list.add(pi);
 		}
 		return list;
 	}
+
+	public Boolean CreateOrModifyTaskInfo(TaskInfo task) {
+		Map<String, String> parms = new HashMap<String, String>();
+//		parms.put("tid", task.getTaskID().toString());  暂时没有做修改功能
+		parms.put("pid", task.getPID().toString());
+		parms.put("parentid", task.getPType().toString());
+		parms.put("name", task.getTaskName());
+		parms.put("remark", task.getRemark());
+		parms.put("begin", task.getBeginDate());
+		parms.put("end", task.getEndDate());
+		parms.put("totalTime", String.valueOf(task.getTotalTime()));
+		parms.put("planTime", String.valueOf(task.getPlanTime()));
+		parms.put("uid", task.getAssignUser().toString());
+		parms.put("status", String.valueOf(task.getStatus()));
+		parms.put("type", "add");
+
+		SoapObject soap = getSoapObjectResponse("CreateOrModifyTaskInfo", parms);
+		if (soap != null)
+			return true;
+		else
+			return false;
+	}
+	
+	//report 数据
+	public Map<String, List<TaskInfo>> QueryTaskReportData(String uid, String beginDate, String endDate) {
+		Map<String, String> parms = new HashMap<String, String>();
+		parms.put("uid", uid);
+		parms.put("begin", beginDate);
+		parms.put("end", endDate);
+		SoapObject soap = getSoapObjectResponse("QueryUserTaskReport", parms);
+		SoapObject so = (SoapObject) soap.getProperty("diffgram");
+		SoapObject doc = (SoapObject) so.getProperty("DocumentElement");
+		
+		Map<String, List<TaskInfo>> tasks = new HashMap<String, List<TaskInfo>>();
+		int elementCount = doc.getPropertyCount();
+		for (int i = 0; i < elementCount; i++) {
+			TaskInfo pi = new TaskInfo();
+			SoapObject table = (SoapObject) doc.getProperty(i);
+			com.elearning.tm.android.client.util.BeanRefUtil.setFieldValueBySoapObject(pi, table);
+			if(!tasks.containsKey(pi.getProjectName())){
+				List<TaskInfo> list = new ArrayList<TaskInfo>();
+				list.add(pi);
+				tasks.put(pi.getProjectName(), list);
+			} else {
+				 List<TaskInfo> tasklist =  tasks.get(pi.getProjectName());
+				 tasklist.add(pi);
+			}
+		}
+		return tasks;
+	}
+	
+	public  List<TaskInfo> QueryUsersTaskReportData(String beginDate, String endDate) {
+		Map<String, String> parms = new HashMap<String, String>();
+		parms.put("begin", beginDate);
+		parms.put("end", endDate);
+		SoapObject soap = getSoapObjectResponse("QueryAllUsersTaskReport", parms);
+		SoapObject so = (SoapObject) soap.getProperty("diffgram");
+		SoapObject doc = (SoapObject) so.getProperty("DocumentElement");
+		
+		List<TaskInfo> tasks = new ArrayList<TaskInfo>();
+		int elementCount = doc.getPropertyCount();
+		for (int i = 0; i < elementCount; i++) {
+			TaskInfo pi = new TaskInfo();
+			SoapObject table = (SoapObject) doc.getProperty(i);
+			com.elearning.tm.android.client.util.BeanRefUtil.setFieldValueBySoapObject(pi, table);
+			tasks.add(pi);
+		}
+		return tasks;
+	}
+	
+
 }

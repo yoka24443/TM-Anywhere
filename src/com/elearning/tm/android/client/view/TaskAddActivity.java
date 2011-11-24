@@ -8,8 +8,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,11 +33,141 @@ import com.elearning.tm.android.client.R;
 import com.elearning.tm.android.client.manage.ProjectInfo.NetWorkProjectInfoManager;
 import com.elearning.tm.android.client.manage.TaskWBS.NetWorkTaskWBSManager;
 import com.elearning.tm.android.client.model.ProjectInfo;
+import com.elearning.tm.android.client.model.TaskInfo;
 import com.elearning.tm.android.client.model.TaskWBS;
+import com.elearning.tm.android.client.net.TMAPI;
+import com.elearning.tm.android.client.task.GenericTask;
+import com.elearning.tm.android.client.task.TaskAdapter;
+import com.elearning.tm.android.client.task.TaskListener;
+import com.elearning.tm.android.client.task.TaskManager;
+import com.elearning.tm.android.client.task.TaskParams;
+import com.elearning.tm.android.client.task.TaskResult;
 import com.elearning.tm.android.client.util.DateTimeHelper;
 import com.elearning.tm.android.client.view.base.BaseActivity;
+import com.elearning.tm.android.client.view.module.Feedback;
+import com.elearning.tm.android.client.view.module.FeedbackFactory;
+import com.elearning.tm.android.client.view.module.FeedbackFactory.FeedbackType;
 
 public class TaskAddActivity extends BaseActivity {
+    // Tasks.
+	private ProgressDialog dialog; //保存进度
+    protected TaskManager taskManager = new TaskManager();
+    protected Feedback mFeedback ;
+    private GenericTask mRetrieveTask;
+	private GenericTask mSendTask;
+    private TaskListener mRetrieveTaskListener = new TaskAdapter() {
+        @Override
+        public String getName() {
+            return "RetrieveTask";
+        }
+        @Override
+        public void onPostExecute(GenericTask task, TaskResult result) {
+            if (result == TaskResult.OK) {
+            	projectAdapter.notifyDataSetChanged();
+            } else if (result == TaskResult.IO_ERROR) {
+                if (task == mRetrieveTask) {
+                    mFeedback.failed(((RetrieveTask) task).getErrorMsg());
+                } 
+            } 
+        }
+    };
+	
+    
+    private class SendTask extends GenericTask {
+		@Override
+		protected TaskResult _doInBackground(TaskParams... params) {
+			try {
+				TMAPI api = new TMAPI();
+		    	api.CreateOrModifyTaskInfo(task);
+			} catch (Exception e) {
+				return TaskResult.IO_ERROR;
+			}
+			return TaskResult.OK;
+		}
+	}
+    
+	private TaskListener mSendTaskListener = new TaskAdapter() {
+		@Override
+		public void onPreExecute(GenericTask task) {
+			onSendBegin();
+		}
+		@Override
+		public void onPostExecute(GenericTask task, TaskResult result) {
+			if (result == TaskResult.OK) {
+				onSendSuccess();
+				initEditor(); //初始化组件
+			} else if (result == TaskResult.IO_ERROR) {
+				onSendFailure();
+			}
+		}
+
+		@Override
+		public String getName() {
+			// TODO Auto-generated method stub
+			return "SendTask";
+		}
+	};
+	
+	private void onSendBegin() {
+		dialog = ProgressDialog.show(TaskAddActivity.this, "",
+				"正在发送...", true);
+		if (dialog != null) {
+			dialog.setCancelable(false);
+		}
+	}
+	
+	private void onSendSuccess() {
+		if (dialog != null) {
+			dialog.setMessage("发送成功!");
+			dialog.dismiss();
+		}
+	}
+
+	private void onSendFailure() {
+		if (dialog != null){
+			dialog.setMessage("发送失败!");
+			dialog.dismiss();
+		}
+	}
+	
+    public void doRetrieve() {
+        if (mRetrieveTask != null
+                && mRetrieveTask.getStatus() == GenericTask.Status.RUNNING) {
+            return;
+        } else {
+            mRetrieveTask = new RetrieveTask();
+            mRetrieveTask.setFeedback(mFeedback);
+            mRetrieveTask.setListener(mRetrieveTaskListener);
+            mRetrieveTask.execute();
+            // Add Task to manager
+            taskManager.addTask(mRetrieveTask);
+        }
+    }
+
+    private class RetrieveTask extends GenericTask {
+        private String _errorMsg;
+
+        public String getErrorMsg() {
+            return _errorMsg;
+        }
+
+        @Override
+        protected TaskResult _doInBackground(TaskParams... params) {
+            try {
+            	reloadSpinnerData();
+            } catch (Exception e) {
+                _errorMsg = e.getMessage();
+                return TaskResult.IO_ERROR;
+            }
+            if (isCancelled()) {
+                return TaskResult.CANCELLED;
+            }
+            //publishProgress(SimpleFeedback.calProgressBySize(40, 20, tasksList));
+            return TaskResult.OK;
+        }
+    }
+
+	
 	Spinner fromEditor;
 	Spinner project;
 	Spinner projectWbs;
@@ -51,6 +183,7 @@ public class TaskAddActivity extends BaseActivity {
 	
 	ArrayList<String> list = new ArrayList<String>();
 	ArrayAdapter<String> adapter;
+	TaskInfo task;
 
 	private static String[] spfrom = new String[] { "project", "projectid" };
 	private static int[] spto = new int[] { R.id.simple_spitem_display,
@@ -73,9 +206,10 @@ public class TaskAddActivity extends BaseActivity {
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		setContentView(R.layout.create_task);
-
+	    mFeedback = FeedbackFactory.create(this, FeedbackType.DIALOG);
 		initEditor();
 		initialSpinner();
+		doRetrieve();
 		
 		//保存按钮事件
 		save = (Button)this.findViewById(R.id.top_send_btn);
@@ -97,9 +231,13 @@ public class TaskAddActivity extends BaseActivity {
 		});
 
 		content = (EditText)this.findViewById(R.id.createtask_taskcontent_edittext);
+		content.setText("");
 		title = (EditText)this.findViewById(R.id.createtask_subjectcontent_edittext);
+		title.setText("");
 		expectTime = (EditText)this.findViewById(R.id.createtask_expectcost_edittext);
+		expectTime.setText("");
 		costTime = (EditText)this.findViewById(R.id.createtask_realcost_edittext);
+		costTime.setText("");
 		// 初始化日期按钮
 		Calendar today = Calendar.getInstance();
 		Intent intent = getIntent();
@@ -171,7 +309,7 @@ public class TaskAddActivity extends BaseActivity {
 		projectWbsAdapter.setDropDownViewResource(R.layout.simple_spdd);
 		projectWbs.setAdapter(projectWbsAdapter);
 
-		reloadSpinnerData();
+		//reloadSpinnerData();
 
 		project.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 					@Override
@@ -206,7 +344,7 @@ public class TaskAddActivity extends BaseActivity {
 			}
 			
 		}
-		projectAdapter.notifyDataSetChanged();
+//		projectAdapter.notifyDataSetChanged();
 //		project.setSelection(0, true);
 //		
 //		HashMap<String, String> item =  (HashMap<String, String>)project.getSelectedItem();
@@ -251,13 +389,13 @@ public class TaskAddActivity extends BaseActivity {
     	String endDate = enddate.getText().toString();
     	
     	SimpleDateFormat parseTime = new SimpleDateFormat("yyyy-MM-dd"); 
-    	Date begin;
-    	Date end;
+    	Date begin = null;
+    	Date end = null;
 		try {
 			begin = parseTime.parse(beginDate);
 			end = parseTime.parse(endDate);
 			if(begin.compareTo(end) > 0){
-				Toast.makeText(this, "开始时间不能大于结束时间.", Toast.LENGTH_SHORT);
+				Toast.makeText(this, "开始时间不能大于结束时间.", Toast.LENGTH_SHORT).show();
 				return;
 	    	}
 		} catch (ParseException e) {
@@ -283,7 +421,25 @@ public class TaskAddActivity extends BaseActivity {
     	int realTime = Integer.parseInt(realTimeValue);
     	int status = fromEditor.getSelectedItemPosition();
     	
-    	
+    	task = new TaskInfo();
+    	task.setPID(UUID.fromString(pid));
+    	task.setPType(UUID.fromString(tid));
+    	task.setTaskName(titleValue);
+    	task.setRemark(contentValue);
+    	task.setBeginTime(begin);
+    	task.setEndTime(end);
+    	task.setTotalTime(realTime);
+    	task.setPlanTime(planTime);
+    	task.setStatus(status);
+    	task.setAssignUser(UUID.fromString("746be26a-b630-4213-889b-4d085beaf279"));
+    	if (mSendTask != null
+				&& mSendTask.getStatus() == GenericTask.Status.RUNNING) {
+			return;
+		} else {
+			mSendTask = new SendTask();
+			mSendTask.setListener(mSendTaskListener);
+			mSendTask.execute();
+		}
     }
     
 	public void openDatePicker(Context context, final TextView datatime) {

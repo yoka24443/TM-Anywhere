@@ -55,16 +55,12 @@ public class NavBar implements Widget {
 		case HEADER_STYLE_BACK:
 			addTitleButtonTo(activity);
 			addBackButtonTo(activity);
-			// addWriteButtonTo(activity);
-			// addSearchButtonTo(activity);
-			// addRefreshButtonTo(activity);
 			break;
 		case HEADER_STYLE_WRITE:
 			 addBackButtonTo(activity);
 			break;
 		case HEADER_STYLE_SEARCH:
-			// addBackButtonTo(activity);
-			// addSearchBoxTo(activity);
+			addTitleButtonTo(activity);
 			addSearchButtonTo(activity);
 			break;
 		case HEADER_STYLE_TITLE:

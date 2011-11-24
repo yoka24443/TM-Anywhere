@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,7 +36,8 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 	protected ProgressBar loadMoreGIF;
 	protected TextView loadMoreBtnTop;
 	protected ProgressBar loadMoreGIFTop;
-
+	private ImageButton search; 
+	
 	protected static int lastPosition = 0;
  
 	// Tasks.
@@ -56,6 +58,14 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 		if (super._onCreate(savedInstanceState)) {
 			doRetrieve();// 加载第一页
 			registerOnClickListener(getUserList());
+			search = (ImageButton)this.findViewById(R.id.search);
+			search.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					allUserList.clear(); //搜索清空原有数据
+					allUserList.addAll(getUsers(getCurrentPage()));
+					draw();
+				}
+			});
 			return true;
 		} else {
 			return false;

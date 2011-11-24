@@ -40,7 +40,8 @@ public abstract class UserListBaseActivity extends BaseActivity implements Refre
 	protected boolean _onCreate(Bundle savedInstanceState) {
 		if (super._onCreate(savedInstanceState)) {
 			setContentView(getLayoutId());
-			mNavbar = new NavBar(NavBar.HEADER_STYLE_TITLE, this);
+//			mNavbar = new NavBar(NavBar.HEADER_STYLE_TITLE, this);
+			mNavbar = new NavBar(NavBar.HEADER_STYLE_SEARCH, this);
 			mFeedback = FeedbackFactory.create(this, FeedbackType.PROGRESS);
 			mProgressText = (TextView) findViewById(R.id.progress_text);
 			setupState();

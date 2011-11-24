@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.elearning.tm.android.client.R;
 import com.elearning.tm.android.client.StartPage;

@@ -43,4 +43,12 @@
 	<color name="ToDayText">#ffc2a53d</color>
 	<color name="Noteback">#FFCC99</color>
 	<color name="simple_spitem">#FF01709F</color>
+    <color name="report_balance_list_bg">#FFFFF8E0</color>
+    <color name="report_balance_list_bgs">#BBFFF8E0</color>
+    <color name="report_balance_indent0_bg">#FF505050</color>
+    <color name="report_balance_indent0_bgs">#BB505050</color> 
+    <color name="other_fgl">#CC61D0FF</color>
+    <color name="other_fgd">#CC555555</color>
+     <color name="report_bar_bg">#FFFFF8E0</color>
+    
 </resources>

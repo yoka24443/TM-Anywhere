@@ -11,10 +11,9 @@ import com.elearning.tm.android.client.net.TMAPI;
 public class NetWorkTaskInfoManager implements ITaskInfo {
 
 	@Override
-	public List<TaskInfo> queryForAWeekList(UUID uid, Date beginDate, Date endDate) {
+	public List<TaskInfo> queryUserTaskList(UUID uid, int pageIndex, int pageSize) {
 		TMAPI api = TMApplication.tmApi; 
-		List<TaskInfo>  taskList = api.QueryUserTaskList(uid.toString(), beginDate, endDate);
+		List<TaskInfo>  taskList = api.QueryUserTaskList(uid.toString(), pageIndex, pageSize);
 		return taskList;
 	}
-
 }

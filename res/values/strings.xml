@@ -51,7 +51,7 @@
 	<string name="createtask_completionrate_textview_text">状态</string>
 	<string name="createtask_completionrate_spinner_prompt">状态</string>
 	<!-- 关于页面 -->
-	<string name="help_version_string">TM-Anywhere 版本号：v1.0.0</string>
+	<string name="help_version_string">版本：v1.0.0 (build20111111)</string>
 	<string name="help_file">逝者如斯夫，不舍昼夜 \n         -- 孔子</string>
 	<!-- 状态条提示  -->
 	<string name="page_status_refreshing">正在获取...</string>
@@ -86,8 +86,13 @@
     <string name="update_soft_content">1.工作任务的添加和查询管理 \n2.日历功能 \n3.通讯录功能 \n4.个人项目报表</string>
     <string name="update_title2">更多信息请关注:</string>
     <string name="indexurl">http://tm.e-learning.com.cn/</string>
+    <string name="info_content">本软件当前只是实现了常用的几个功能,如果有更多的建议或需求请联系我,希望有兴趣的朋友一起参与开发完善。\n作者:tifancy\n站点:http://tm.e-learning.com.cn\n邮箱:tifancy@gmail.com</string>
     
     <string name="google_sync_help">提示：本同步功能将同步离线时录入的计划任务和对本地基础数据的更新。整个过程将会耗费一段时间,请保证网络的连接通畅并耐心等待。\n\n操作方法：保证网络通畅的情况下,点击同步按钮后,请耐心等待直至提示完成.</string>
     <string name="google_syn">同　　步</string>
     
+    
+    <string name="begin_string">开始 : </string>
+    <string name="end_string">结束 : </string>
+    <string name="query">查询</string>
 </resources>

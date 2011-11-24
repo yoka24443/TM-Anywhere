@@ -8,9 +8,6 @@ import java.util.Date;
 import java.util.Locale;
 import android.util.Log;
 
-
-
-
 public class DateTimeHelper {
 	private static final String TAG = "DateTimeHelper";
 
@@ -62,7 +59,7 @@ public class DateTimeHelper {
 	public static long getNowTime() {
 		return Calendar.getInstance().getTime().getTime();
 	}
-	
+
 	/**
 	 * 格式化string为Date
 	 * 
@@ -99,12 +96,25 @@ public class DateTimeHelper {
 			return null;
 		}
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",
-					Locale.US);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 			return sdf.format(date);
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
+	public static Calendar getADayOfWeek(Calendar day, int dayOfWeek) {
+		int week = day.get(Calendar.DAY_OF_WEEK);
+		if (week == dayOfWeek)
+			return day;
+		int diffDay = dayOfWeek - week;
+		if (week == Calendar.SUNDAY) {
+			diffDay -= 7;
+		} else if (dayOfWeek == Calendar.SUNDAY) {
+			diffDay += 7;
+		}
+		day.add(Calendar.DATE, diffDay);
+		return day;
+	}
+
 }

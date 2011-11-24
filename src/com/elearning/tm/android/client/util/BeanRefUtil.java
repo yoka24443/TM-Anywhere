@@ -12,7 +12,6 @@ import java.util.UUID;
 import org.ksoap2.serialization.SoapObject;
 
 import android.content.ContentValues;
-
 /**
  * java bean 反射的方法
  * 
@@ -226,16 +225,17 @@ public class BeanRefUtil {
 	public static Date parseDate(String datestr) {
 		if (null == datestr || "".equals(datestr)) {
 			return null;
+		} else if(datestr.indexOf('T') > 0){  //.NET程序返回的日期格式 2011-09-23T00:00:00; 
+			datestr = datestr.substring(0, datestr.indexOf('T'));
 		}
 		try {
 			String fmtstr = null;
 			if (datestr.indexOf(':') > 0) {
 				fmtstr = "yyyy-MM-dd HH:mm:ss";
 			} else {
-
 				fmtstr = "yyyy-MM-dd";
 			}
-			SimpleDateFormat sdf = new SimpleDateFormat(fmtstr, Locale.UK);
+			SimpleDateFormat sdf = new SimpleDateFormat(fmtstr);
 			return sdf.parse(datestr);
 		} catch (Exception e) {
 			return null;

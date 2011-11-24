@@ -2,6 +2,7 @@ package com.elearning.tm.android.client.view.module;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class TMArrayAdapter extends BaseAdapter implements TmAdapter {
 	private static class ViewHolder {
 		public LinearLayout taskLayout;
 		public TextView taskProject;
+		public TextView taskWBS;
 		public TextView taskText;
 		public TextView metaText;
 	}
@@ -64,11 +66,10 @@ public class TMArrayAdapter extends BaseAdapter implements TmAdapter {
 
 			ViewHolder holder = new ViewHolder();
 			holder.taskLayout=(LinearLayout) view.findViewById(R.id.task_layout);
-			holder.taskProject = (TextView) view
-					.findViewById(R.id.task_project_text);
+			holder.taskProject = (TextView) view.findViewById(R.id.task_project_text);
+			holder.taskWBS =  (TextView) view.findViewById(R.id.task_wbs_text);
 			holder.taskText = (TextView) view.findViewById(R.id.task_content_text);
-			holder.metaText = (TextView) view
-					.findViewById(R.id.task_meta_text);
+			holder.metaText = (TextView) view.findViewById(R.id.task_meta_text);
 			view.setTag(holder);
 		} else {
 			view = convertView;
@@ -77,8 +78,8 @@ public class TMArrayAdapter extends BaseAdapter implements TmAdapter {
 		ViewHolder holder = (ViewHolder) view.getTag();
 
 		TaskInfo task = tasks.get(position);
-
 		holder.taskProject.setText(task.getPTitle());
+		holder.taskWBS.setText(task.getTaskWBS());
 		holder.taskText.setText(task.getRemark());
 		holder.metaText.setText(this.buildMetaText(mMetaBuilder, task));
 		return view;
@@ -87,9 +88,9 @@ public class TMArrayAdapter extends BaseAdapter implements TmAdapter {
 	public String buildMetaText(StringBuilder builder, TaskInfo task){
 		builder.setLength(0);
 
-		builder.append(com.elearning.tm.android.client.util.DateTimeHelper.getRelativeDate(task.getBeginTime()));
-		builder.append(" ");
-		builder.append(com.elearning.tm.android.client.util.DateTimeHelper.getRelativeDate(task.getEndTime()));
+		builder.append(com.elearning.tm.android.client.util.DateTimeHelper.fmtDate(task.getBeginTime()));
+		builder.append(" 至 ");
+		builder.append(com.elearning.tm.android.client.util.DateTimeHelper.fmtDate(task.getEndTime()));
 		builder.append(" ");
 		builder.append("共耗时");
 		builder.append(task.getTotalTime());
@@ -113,8 +114,8 @@ public class TMArrayAdapter extends BaseAdapter implements TmAdapter {
 		return builder.toString();
 	}
 	
-	public void refresh(ArrayList<TaskInfo> tasks) {
-		tasks = (ArrayList<TaskInfo>) tasks.clone();
+	public void refresh(ArrayList<TaskInfo> task) {
+		tasks = (ArrayList<TaskInfo>) task.clone();
 		notifyDataSetChanged();
 	}
 

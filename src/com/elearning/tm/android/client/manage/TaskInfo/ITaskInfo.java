@@ -8,5 +8,5 @@ import java.util.UUID;
 import com.elearning.tm.android.client.model.TaskInfo;
 
 public interface ITaskInfo {
-	public List<TaskInfo> queryForAWeekList(UUID uid, Date beginDate, Date endDate) ;
+	public List<TaskInfo> queryUserTaskList(UUID uid, int pageIndex, int pageSize);
 }

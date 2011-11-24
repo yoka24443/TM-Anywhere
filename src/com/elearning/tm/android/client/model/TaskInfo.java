@@ -3,6 +3,7 @@ package com.elearning.tm.android.client.model;
 import java.util.Date;
 import java.util.UUID;
 
+import com.elearning.tm.android.client.util.DateTimeHelper;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -19,7 +20,11 @@ public class TaskInfo {
 	@DatabaseField
 	private UUID PID;
 	@DatabaseField
+	private String ProjectName;
+	@DatabaseField
 	private int TotalTime;
+	@DatabaseField
+	private int PlanTime;
 	@DatabaseField
 	private String PTitle;
 	@DatabaseField
@@ -33,14 +38,29 @@ public class TaskInfo {
 	@DatabaseField
 	private int Status;
 	@DatabaseField
-	private Date beginTime;
+	private Date BeginTime;
 	@DatabaseField
-	private Date endTime;
+	private Date EndTime;
 	@DatabaseField
 	private UUID creator;
+	@DatabaseField
+	private String TaskWBS;
+	
 	
 	//同步状态
+	public String getProjectName() {
+		return ProjectName;
+	}
+	public void setProjectName(String projectName) {
+		ProjectName = projectName;
+	}
 	
+	public String getTaskWBS() {
+		return TaskWBS;
+	}
+	public void setTaskWBS(String taskWBS) {
+		TaskWBS = taskWBS;
+	}
 	public int getRowNumber() {
 		return RowNumber;
 	}
@@ -77,6 +97,13 @@ public class TaskInfo {
 	public void setTotalTime(int totalTime) {
 		TotalTime = totalTime;
 	}
+	public int getPlanTime() {
+		return PlanTime;
+	}
+	public void setPlanTime(int planTime) {
+		PlanTime = planTime;
+	}
+	
 	public String getPTitle() {
 		return PTitle;
 	}
@@ -114,16 +141,16 @@ public class TaskInfo {
 		Status = status;
 	}
 	public Date getBeginTime() {
-		return beginTime;
+		return BeginTime;
 	}
 	public void setBeginTime(Date beginTime) {
-		this.beginTime = beginTime;
+		BeginTime = beginTime;
 	}
 	public Date getEndTime() {
-		return endTime;
+		return EndTime;
 	}
 	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+		EndTime = endTime;
 	}
 	public UUID getCreator() {
 		return creator;
@@ -132,5 +159,11 @@ public class TaskInfo {
 		this.creator = creator;
 	}
 	
-
+	public String getBeginDate() {
+		return DateTimeHelper.fmtDate(BeginTime);
+	}
+	
+	public String getEndDate() {
+		return DateTimeHelper.fmtDate(EndTime);
+	}
 }

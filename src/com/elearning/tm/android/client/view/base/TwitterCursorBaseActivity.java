@@ -5,12 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.elearning.tm.android.client.R;
+import com.elearning.tm.android.client.model.Paging;
 import com.elearning.tm.android.client.model.TaskInfo;
+import com.elearning.tm.android.client.model.UserInfo;
 import com.elearning.tm.android.client.task.GenericTask;
 import com.elearning.tm.android.client.task.TaskAdapter;
 import com.elearning.tm.android.client.task.TaskListener;
 import com.elearning.tm.android.client.task.TaskManager;
+import com.elearning.tm.android.client.task.TaskParams;
 import com.elearning.tm.android.client.task.TaskResult;
+import com.elearning.tm.android.client.view.module.SimpleFeedback;
 import com.elearning.tm.android.client.view.module.TMArrayAdapter;
 import com.elearning.tm.android.client.view.module.TmAdapter;
 import com.markupartist.android.widget.PullToRefreshListView;
@@ -27,10 +31,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
-/**
- * TwitterCursorBaseLine用于带有静态数据来源（对应数据库的，与twitter表同构的特定表）的展现
- */
 public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity {
       
 	static final String TAG = "TwitterCursorBaseActivity";
@@ -52,9 +52,10 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
     protected TaskManager taskManager = new TaskManager();
     private GenericTask mRetrieveTask;
     private GenericTask mGetMoreTask;
-
     private int mRetrieveCount = 0;
 
+    private ArrayList<TaskInfo> allTaskList;
+    
     private TaskListener mRetrieveTaskListener = new TaskAdapter() {
 
         @Override
@@ -73,11 +74,8 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
                 logout();
             } else if (result == TaskResult.OK) {
                 draw();
-                if (task == mRetrieveTask) {
-                    goTop();
-                }
+                goTop();
             } else if (result == TaskResult.IO_ERROR) {
-                // FIXME: bad smell
                 if (task == mRetrieveTask) {
                     mFeedback.failed(((RetrieveTask) task).getErrorMsg());
                 } else if (task == mGetMoreTask) {
@@ -99,61 +97,18 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
         }
     };
 
-    private TaskListener mFollowerRetrieveTaskListener = new TaskAdapter() {
+	public abstract Paging getCurrentPage();// 加载
+	public abstract Paging getNextPage();// 加载
 
-        @Override
-        public String getName() {
-            return "FollowerRetrieve";
-        }
-
-        @Override
-        public void onPostExecute(GenericTask task, TaskResult result) {
-            if (result == TaskResult.OK) {
-
-            } else {
-                // Do nothing.
-            }
-        }
-    };
-
-    // Refresh data at startup if last refresh was this long ago or greater.
-    private static final long REFRESH_THRESHOLD = 5 * 60 * 1000;
-
-    // Refresh followers if last refresh was this long ago or greater.
-    private static final long FOLLOWERS_REFRESH_THRESHOLD = 12 * 60 * 60 * 1000;
-
-    abstract protected Cursor fetchMessages();
-
-    public abstract int getDatabaseType();
-
-    public abstract String getUserId();
-
-    public abstract String fetchMaxId();
-
-    public abstract String fetchMinId();
-
-    public abstract int addMessages(ArrayList<TaskInfo> tweets, boolean isUnread);
-
-    public abstract List<TaskInfo> getMessageSinceId(String maxId);
-
-    public abstract List<TaskInfo> getMoreMessageFromId(String minId);
+    public abstract ArrayList<TaskInfo> getTaskList(Paging page);
 
     @Override
     protected void setupState() {
-        Cursor cursor;
-
-        cursor = fetchMessages(); // getDb().fetchMentions();
-        setTitle(getActivityTitle());
-        startManagingCursor(cursor);
-
-        mTweetList = (PullToRefreshListView) findViewById(R.id.tweet_list);
-
-        // TODO: 需处理没有数据时的情况
-        Log.d("LDS", cursor.getCount() + " cursor count");
+        mTweetList = (PullToRefreshListView) findViewById(R.id.task_list);
         setupListHeader(true);
-
-        TmAdapter = new TweetCursorAdapter(this, cursor);
+        TmAdapter = new TMArrayAdapter(this);
         mTweetList.setAdapter(TmAdapter);
+        allTaskList = new ArrayList<TaskInfo>();
     }
 
     /**
@@ -185,11 +140,11 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
         // 前者仅包含数据的数量（不包括foot和head），后者包含foot和head
         // 因此在同时存在foot和head的情况下，list.count = adapter.count + 2
         if (position == 0) {
-            // 第一个Item(header)
+            // header
             loadMoreGIFTop.setVisibility(View.VISIBLE);
             doRetrieve();
         } else if (position == mTweetList.getCount() - 1) {
-            // 最后一个Item(footer)
+            // footer
             loadMoreGIF.setVisibility(View.VISIBLE);
             doGetMore();
         }
@@ -210,17 +165,16 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
         return TmAdapter;
     }
 
-
     @Override
     protected TaskInfo getContextItemTask(int position) {
         position = position - 1;
         // 因为List加了Header和footer，所以要跳过第一个以及忽略最后一个
         if (position >= 0 && position < TmAdapter.getCount()) {
-            Cursor cursor = (Cursor) TmAdapter.getItem(position);
-            if (cursor == null) {
+        	TaskInfo task = (TaskInfo) TmAdapter.getItem(position);
+            if (task == null) {
                 return null;
             } else {
-                return StatusTable.parseCursor(cursor);
+                return task;
             }
         } else {
             return null;
@@ -236,10 +190,7 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
     protected boolean _onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate.");
         if (super._onCreate(savedInstanceState)) {
-            boolean shouldRetrieve = false;
-            if (shouldRetrieve) {
-                doRetrieve();
-            }
+            doRetrieve();
             goTop(); // skip the header
             return true;
         } else {
@@ -332,7 +283,7 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
     }
 
     public void draw() {
-        TmAdapter.refresh();
+        TmAdapter.refresh(allTaskList);
     }
 
     public void goTop() {
@@ -351,7 +302,6 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
             mRetrieveTask.setFeedback(mFeedback);
             mRetrieveTask.setListener(mRetrieveTaskListener);
             mRetrieveTask.execute();
-
             // Add Task to manager
             taskManager.addTask(mRetrieveTask);
         }
@@ -366,32 +316,23 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
 
         @Override
         protected TaskResult _doInBackground(TaskParams... params) {
-            List<TaskInfo> tasksList;
+        	ArrayList<TaskInfo> tasksList;
             try {
-                String maxId = fetchMaxId(); 
-                statusList = getMessageSinceId(maxId);
+            	tasksList = getTaskList(getCurrentPage());
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
                 _errorMsg = e.getMessage();
                 return TaskResult.IO_ERROR;
             }
-
-            ArrayList<TaskInfo> tasks = new ArrayList<TaskInfo>();
-            for (TaskInfo status : statusList) {
                 if (isCancelled()) {
                     return TaskResult.CANCELLED;
+                }else{
+//                	allTaskList.addAll(tasksList); //翻页形式 还是 列表形式改这里
+                	allTaskList = tasksList; 	//由于屏幕小,并且只关心最近20条故采用分页模式,list不在累加
                 }
-                tweets.add(Tweet.create(status));
-                if (isCancelled()) {
-                    return TaskResult.CANCELLED;
-                }
-            }
-            publishProgress(SimpleFeedback.calProgressBySize(40, 20, tweets));
-            mRetrieveCount = addMessages(tweets, false);
-
+            publishProgress(SimpleFeedback.calProgressBySize(40, 20, tasksList));
             return TaskResult.OK;
         }
-
     }
 
     // GET MORE TASK
@@ -404,41 +345,26 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
 
         @Override
         protected TaskResult _doInBackground(TaskParams... params) {
-            List<TaskInfo> statusList;
-            String minId = fetchMinId(); 
-            if (minId == null) {
-                return TaskResult.FAILED;
-            }
-
+        	ArrayList<TaskInfo> tasksList;
             try {
-                statusList = getMoreMessageFromId(minId);
-            } catch (HttpException e) {
+            	tasksList = getTaskList(getNextPage());
+            } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
                 _errorMsg = e.getMessage();
                 return TaskResult.IO_ERROR;
             }
 
-            if (statusList == null) {
+            if (tasksList == null) {
                 return TaskResult.FAILED;
             }
-
-            ArrayList<TaskInfo> tweets = new ArrayList<TaskInfo>();
-            publishProgress(SimpleFeedback.calProgressBySize(40, 20, tweets));
-
-            for (TaskInfo tasks : statusList) {
-                if (isCancelled()) {
-                    return TaskResult.CANCELLED;
-                }
-
-                tweets.add(Tweet.create(status));
+            publishProgress(SimpleFeedback.calProgressBySize(40, 20, tasksList));
 
                 if (isCancelled()) {
                     return TaskResult.CANCELLED;
+                }else{
+//                	allTaskList.addAll(tasksList); //翻页形式 还是 列表形式改这里
+                	allTaskList = tasksList; 	//由于屏幕小,并且只关心最近20条故采用分页模式,list不在累加
                 }
-            }
-
-            addMessages(tweets, false); // getDb().addMentions(tweets, false);
-
             return TaskResult.OK;
         }
     }
