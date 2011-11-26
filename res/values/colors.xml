@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <drawable name="label_color">#FF6BB324</drawable>
-  <drawable name="status_color">#FFFF0000</drawable>
-  <drawable name="tweet_user_color">#FF52991F</drawable>
-  <drawable name="tweet_color">#FF000000</drawable>  
-  <drawable name="tweet_meta_color">#FF999999</drawable>
-  
-  <color name="opaque_red">#f00</color>
-  <color name="translucent_red">#80ff0000</color>
-  <color name="link_color">#FF0066CC</color>  
-  
-  <color name="status_background">#FFA</color>
-  <color name="status_text">#000</color>
-  
-  <color name="simiple_button_color">#FFF</color>
-  <color name="simple_text_color">#FF52991F</color>
-  <color name="body_background">#FFF</color>
-  
-  <color name="clear">#00000000</color>
-  <color name="button_text">#444</color>
-  <color name="action_bar">#fff</color>
-  <color name="action_bar_pressed">#ffd0d0d0</color>
-  
-  <color name="self_background">#FFFAF4BE</color>
-  <color name="mention_background">#FFC9E6F8</color>
-  <!--rili-->
-  <color name="white">#ffffffff</color>
+	<drawable name="label_color">#FF6BB324</drawable>
+	<drawable name="status_color">#FFFF0000</drawable>
+	<drawable name="tweet_user_color">#FF52991F</drawable>
+	<drawable name="tweet_color">#FF000000</drawable>
+	<drawable name="tweet_meta_color">#FF999999</drawable>
+
+	<color name="opaque_red">#f00</color>
+	<color name="translucent_red">#80ff0000</color>
+	<color name="link_color">#FF0066CC</color>
+
+	<color name="status_background">#FFA</color>
+	<color name="status_text">#000</color>
+
+	<color name="simiple_button_color">#FFF</color>
+	<color name="simple_text_color">#FF52991F</color>
+	<color name="body_background">#FFF</color>
+
+	<color name="clear">#00000000</color>
+	<color name="button_text">#444</color>
+	<color name="action_bar">#fff</color>
+	<color name="action_bar_pressed">#ffd0d0d0</color>
+
+	<color name="self_background">#FFFAF4BE</color>
+	<color name="mention_background">#FFC9E6F8</color>
+	<!--rili-->
+	<color name="white">#ffffffff</color>
 	<color name="calendar_background">#cb9e41</color>
 	<color name="selection">#b1dce2ff</color>
 	<color name="calendar_zhe_day">#faedda</color>
@@ -43,12 +43,14 @@
 	<color name="ToDayText">#ffc2a53d</color>
 	<color name="Noteback">#FFCC99</color>
 	<color name="simple_spitem">#FF01709F</color>
-    <color name="report_balance_list_bg">#FFFFF8E0</color>
-    <color name="report_balance_list_bgs">#BBFFF8E0</color>
-    <color name="report_balance_indent0_bg">#FF505050</color>
-    <color name="report_balance_indent0_bgs">#BB505050</color> 
-    <color name="other_fgl">#CC61D0FF</color>
-    <color name="other_fgd">#CC555555</color>
-     <color name="report_bar_bg">#FFFFF8E0</color>
-    
+	<color name="report_balance_list_bg">#FFFFF8E0</color>
+	<color name="report_balance_list_bgs">#BBFFF8E0</color>
+	<color name="report_balance_indent0_bg">#FF505050</color>
+	<color name="report_balance_indent0_bgs">#BB505050</color>
+	<color name="other_fgl">#CC61D0FF</color>
+	<color name="other_fgd">#CC555555</color>
+	<color name="report_bar_bg">#FFFFF8E0</color>
+
+   <color name="transparent">#00ffffff</color>
+	<color name="dividing_line">#ffc7c8c8</color>
 </resources>

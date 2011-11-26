@@ -58,7 +58,6 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 		View view;
 		if (convertView == null) {
 			view = tmInflater.inflate(R.layout.follower_item, parent, false);
-
 			ViewHolder holder = new ViewHolder();
 			holder.profileImage = (ImageView) view.findViewById(R.id.profile_image);
 			holder.screenName = (TextView) view.findViewById(R.id.screen_name);
@@ -69,9 +68,8 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 		} else {
 			view = convertView;
 		}
-
 		ViewHolder holder = (ViewHolder) view.getTag();
-
+		
 		final UserInfo user = tmUsers.get(position);
 //		如果需要添加avatar
 //		String profileImageUrl = user.getHeader();
@@ -84,6 +82,7 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 		holder.userPhone.setText(user.getMobile());
 		holder.userMail.setText(user.getEmail());
 		holder.followBtn.setText("发送短信");
+	
 
 		holder.followBtn.setOnClickListener(new OnClickListener() {
 			@Override

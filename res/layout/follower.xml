@@ -1,35 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="@color/body_background"
-  >
-  
-    <!-- Header -->
-      <include layout="@layout/header_search"/> 
-    
-    <!-- Main content area. -->
-	    <com.elearning.tm.android.client.view.module.MyListView
-	    android:id="@+id/follower_list"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-	    android:cacheColorHint="#00000000"
-	    android:fadingEdge="none"
-	    android:fadeScrollbars="true"
-	    android:divider="@drawable/dashed_line"
-	    android:dividerHeight="1dip"
-	    android:fastScrollEnabled="true"
-	    />                
-	 <!-- 提示栏 -->
-     <TextView
-     android:id="@+id/progress_text"
-     android:layout_alignParentBottom="true"
-     android:layout_alignParentRight="true"
-     android:visibility="gone"
-     style="@style/statusbar"
-     />
-    
-    
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="@color/body_background">
+	<!-- Header -->
+	<include layout="@layout/header_search" />
+	<!-- Main content area. @drawable/dashed_line-->
+	<ListView android:id="@+id/follower_list"
+		android:layout_width="fill_parent" android:layout_height="0dp"
+		android:layout_weight="1" android:background="#00000000"
+		android:cacheColorHint="#00000000" android:fadingEdge="none"
+		android:fadeScrollbars="true" android:divider="@color/dividing_line"
+		android:dividerHeight="0.5dip" android:fastScrollEnabled="true"
+		android:listSelector="#00000000" />
+	<!-- 提示栏 -->
+	<TextView android:id="@+id/progress_text"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true" android:visibility="gone"
+		style="@style/statusbar" />
 </LinearLayout>

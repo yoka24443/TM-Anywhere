@@ -3,10 +3,15 @@ package com.elearning.tm.android.client.view.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewStub;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -36,19 +41,25 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 	protected ProgressBar loadMoreGIF;
 	protected TextView loadMoreBtnTop;
 	protected ProgressBar loadMoreGIFTop;
-	private ImageButton search; 
-	
+	private ImageButton search;
+	private View otherInflatedView;
+	private Button btn_call;
+	private Button btn_sendMsg;
+	private Button btn_sendMail;
 	protected static int lastPosition = 0;
- 
+	
+	
+	
 	// Tasks.
 	protected TaskManager taskManager = new TaskManager();
 	private GenericTask mRetrieveTask;
 	private GenericTask mGetMoreTask;// 每次20用户
 
 	public abstract Paging getCurrentPage();// 加载
+
 	public abstract Paging getNextPage();// 加载
 
-	protected abstract List<UserInfo> getUsers(Paging page); 
+	protected abstract List<UserInfo> getUsers(Paging page);
 
 	private ArrayList<UserInfo> allUserList;
 
@@ -58,10 +69,10 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 		if (super._onCreate(savedInstanceState)) {
 			doRetrieve();// 加载第一页
 			registerOnClickListener(getUserList());
-			search = (ImageButton)this.findViewById(R.id.search);
+			search = (ImageButton) this.findViewById(R.id.search);
 			search.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
-					allUserList.clear(); //搜索清空原有数据
+					allUserList.clear(); // 搜索清空原有数据
 					allUserList.addAll(getUsers(getCurrentPage()));
 					draw();
 				}
@@ -197,7 +208,7 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 	protected UserInfo getContextItemUser(int position) {
 		Log.d(TAG, "list position:" + position);
 		// 加入footer跳过footer
-		if (position >=0 && position < mUserListAdapter.getCount()) {
+		if (position >= 0 && position < mUserListAdapter.getCount()) {
 			UserInfo item = (UserInfo) mUserListAdapter.getItem(position);
 			if (item == null) {
 				return null;
@@ -208,8 +219,7 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 			return null;
 		}
 	}
-	
-	
+
 	protected void registerOnClickListener(ListView listView) {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -220,10 +230,72 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 					Log.w(TAG, "selected item not available");
 					specialItemClicked(position);
 				} else {
-					//launchActivity(ProfileActivity.createIntent(user.id));
+					View inflatedView = (View) view.findViewById(R.id.call_log_expand);
+					if (otherInflatedView != null && otherInflatedView != inflatedView) {
+						otherInflatedView.setVisibility(View.GONE);
+					}
+					if (inflatedView == null) {
+						ViewStub mViewStub = (ViewStub) view.findViewById(R.id.stub_call_detail);
+						mViewStub.setVisibility(View.VISIBLE);
+						otherInflatedView = (View) view.findViewById(R.id.call_log_expand);
+					} else {
+						otherInflatedView = inflatedView;
+						if (inflatedView.getVisibility() == View.GONE) {
+							inflatedView.setVisibility(View.VISIBLE);
+						} else if (inflatedView.getVisibility() == View.VISIBLE) {
+							inflatedView.setVisibility(View.GONE);
+						}
+
+					}
+					Log.v("get", view.findViewById(R.id.btn_call).toString());
+					bindButtonEvent(view,  user);
 				}
 			}
 		});
+	}
+	
+	//绑定iistitem中button的事件
+	private void bindButtonEvent(View view, final UserInfo user){
+		View inflatedView = (View) view.findViewById(R.id.call_log_expand);
+		if(inflatedView != null){
+			btn_call = (Button)view.findViewById(R.id.btn_call);
+			btn_sendMsg = (Button)view.findViewById(R.id.btn_sms);
+			btn_sendMail = (Button)view.findViewById(R.id.btn_detail);
+			btn_call.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// 打电话
+					  Intent myIntentDial = new Intent(  
+	                          "Intent.ACTION_CALL",Uri.parse("tel:"+user.getMobile())  
+	                  );  
+					startActivity(myIntentDial);  
+				}
+			});
+			
+			btn_sendMsg.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// 发送短信
+					Uri uri = Uri.parse("smsto:" + user.getMobile());            
+					Intent it = new Intent(Intent.ACTION_SENDTO, uri);            
+					it.putExtra("sms_body", user.getUserAccount() + ", 你好:");            
+					startActivity(it);  
+				}
+			});
+			
+			btn_sendMail.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// 发送邮件
+					 Intent it = new Intent(Intent.ACTION_SEND);  
+					     it.putExtra(Intent.EXTRA_EMAIL, user.getEmail());  
+					     it.putExtra(Intent.EXTRA_TEXT, user.getUserAccount() + ", 你好:");  
+					     it.setType("text/plain");  
+					     startActivity(Intent.createChooser(it, "选择邮件客户端"));
+				}
+			});
+			
+		}
 	}
 
 	@Override
@@ -311,7 +383,7 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 				return TaskResult.IO_ERROR;
 			}
 			// 将获取到的数据(保存/更新)到数据库
-			//getDb().syncWeiboUsers(usersList);
+			// getDb().syncWeiboUsers(usersList);
 
 			mFeedback.update(100 - (int) Math.floor(usersList.size() * 2));
 			for (UserInfo user : usersList) {

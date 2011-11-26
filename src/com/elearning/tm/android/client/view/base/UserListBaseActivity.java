@@ -1,8 +1,13 @@
 package com.elearning.tm.android.client.view.base;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import com.elearning.tm.android.client.R;
 import com.elearning.tm.android.client.model.UserInfo;
 import com.elearning.tm.android.client.view.module.Feedback;
@@ -40,12 +45,10 @@ public abstract class UserListBaseActivity extends BaseActivity implements Refre
 	protected boolean _onCreate(Bundle savedInstanceState) {
 		if (super._onCreate(savedInstanceState)) {
 			setContentView(getLayoutId());
-//			mNavbar = new NavBar(NavBar.HEADER_STYLE_TITLE, this);
 			mNavbar = new NavBar(NavBar.HEADER_STYLE_SEARCH, this);
 			mFeedback = FeedbackFactory.create(this, FeedbackType.PROGRESS);
 			mProgressText = (TextView) findViewById(R.id.progress_text);
 			setupState();
-
 			return true;
 		} else {
 			return false;
@@ -73,5 +76,5 @@ public abstract class UserListBaseActivity extends BaseActivity implements Refre
 	protected void specialItemClicked(int position) {
 
 	}
-
+	
 }
