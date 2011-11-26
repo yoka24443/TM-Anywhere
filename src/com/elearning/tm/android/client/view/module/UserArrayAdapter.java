@@ -50,7 +50,7 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 		public TextView screenName;
 		public TextView userPhone;
 		public TextView userMail;
-		public TextView followBtn;
+//		public TextView followBtn;
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 			holder.screenName = (TextView) view.findViewById(R.id.screen_name);
 			holder.userPhone = (TextView) view.findViewById(R.id.user_phone);
 			holder.userMail = (TextView) view.findViewById(R.id.user_mail);
-			holder.followBtn = (TextView) view.findViewById(R.id.follow_btn);
+//			holder.followBtn = (TextView) view.findViewById(R.id.follow_btn);
 			view.setTag(holder);
 		} else {
 			view = convertView;
@@ -81,19 +81,18 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 		holder.screenName.setText(user.getUserAccount());
 		holder.userPhone.setText(user.getMobile());
 		holder.userMail.setText(user.getEmail());
-		holder.followBtn.setText("发送短信");
-	
 
-		holder.followBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// 发送短信
-				Uri uri = Uri.parse("smsto:" + user.getMobile());            
-				Intent it = new Intent(Intent.ACTION_SENDTO, uri);            
-				it.putExtra("sms_body", user.getUserAccount() + ", 你好:");            
-				tmContext.startActivity(it);  
-			}
-		});
+//		holder.followBtn.setText("发送短信");
+//		holder.followBtn.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				// 发送短信
+//				Uri uri = Uri.parse("smsto:" + user.getMobile());            
+//				Intent it = new Intent(Intent.ACTION_SENDTO, uri);            
+//				it.putExtra("sms_body", user.getUserAccount() + ", 你好:");            
+//				tmContext.startActivity(it);  
+//			}
+//		});
 		return view;
 	}
 

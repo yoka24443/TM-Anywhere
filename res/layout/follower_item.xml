@@ -9,10 +9,10 @@
 		<ImageView android:id="@+id/profile_image"
 			android:layout_marginTop="2dp" android:layout_marginLeft="2dp"
 			android:layout_marginBottom="2dp" android:layout_marginRight="7dp"
-			android:layout_width="48dp" android:layout_height="48dp" />
+			android:layout_width="48dp" android:layout_height="48dp" /><!--
 		<RelativeLayout android:orientation="vertical"
 			android:layout_width="fill_parent" android:layout_height="wrap_content">
-			<LinearLayout android:orientation="horizontal"     android:gravity="center" 
+			--><LinearLayout android:orientation="horizontal"     android:gravity="center" 
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:id="@+id/linealayout01" android:layout_alignParentLeft="true">
 				<!-- user name -->
@@ -40,14 +40,14 @@
 					</LinearLayout>
 				</LinearLayout>
 			</LinearLayout>
-			<!-- NOTE: 不能使用Button, 否则ListView的点击事件会失效 -->
+			<!-- NOTE: 不能使用Button, 否则ListView的点击事件会失效 --><!--
 			<TextView android:id="@+id/follow_btn" android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentRight="true"
 				android:layout_centerVertical="true" android:gravity="center"
 				android:clickable="true" style="@style/Button" android:textSize="14sp"
 				android:layout_marginTop="5dip" android:layout_marginRight="5dip" />
-		</RelativeLayout>
+		</RelativeLayout>-->
 	</LinearLayout>
 	<ViewStub android:id="@+id/stub_call_detail" android:layout="@layout/stub_call_detail"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
