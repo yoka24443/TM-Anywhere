@@ -50,7 +50,7 @@
 		<item name="android:textStyle">bold</item>
 	</style>
 	<style name="LinkText.Bold.Big">
-		<item name="android:textSize">14sp</item>
+		<item name="android:textSize">18sp</item>
 	</style>
 	<style name="InsetText">
 		<item name="android:shadowColor">@android:color/white</item>
