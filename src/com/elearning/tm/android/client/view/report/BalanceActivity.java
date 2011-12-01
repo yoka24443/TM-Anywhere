@@ -19,6 +19,7 @@ import com.elearning.tm.android.client.task.TaskResult;
 import com.elearning.tm.android.client.view.base.BaseActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -30,6 +31,8 @@ import android.widget.TextView;
 
 public class BalanceActivity extends BaseActivity {
 
+	private static String begin;
+	private static String end;
 	private static String[] bindingFrom = new String[] { "layout", "name",
 			"totaltime" };
 
@@ -113,6 +116,7 @@ public class BalanceActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.report_balance);
+		initDateRegion();
 		initialContent();
 		doRetrieve();
 	}
@@ -168,7 +172,7 @@ public class BalanceActivity extends BaseActivity {
 
 		TMAPI api = new TMAPI();
 		list = api.QueryTaskReportData("746be26a-b630-4213-889b-4d085beaf279",
-				"2011-09-01", "2011-11-20");
+				begin, end);
 
 		listViewData = sumTaskTotalTime(list);
 		for (TaskInfo task : listViewData) {
@@ -238,6 +242,12 @@ public class BalanceActivity extends BaseActivity {
 				(int) (marginRight * dp), lp.bottomMargin);
 		tv.setPadding(tv.getPaddingLeft(), (int) (paddingTB * dp), tv
 				.getPaddingRight(), (int) (paddingTB * dp));
+	}
+	
+	private void initDateRegion() {
+		Intent intent = getIntent();
+		begin = intent.getStringExtra("begin");
+		end = intent.getStringExtra("end");
 	}
 
 }

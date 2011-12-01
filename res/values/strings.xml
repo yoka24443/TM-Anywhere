@@ -92,7 +92,9 @@
     <string name="google_syn">同　　步</string>
     
     
-    <string name="begin_string">开始 : </string>
-    <string name="end_string">结束 : </string>
+    <string name="begin_string">开始日期 : </string>
+    <string name="end_string">结束日期 : </string>
     <string name="query">查询</string>
+    <string name="serverurl">http://tm.e-learning.com.cn/WebService/update.xml</string>
+    
 </resources>

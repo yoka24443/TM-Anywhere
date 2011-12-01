@@ -77,9 +77,8 @@ public class UserInfo {
 	@DatabaseField(canBeNull = false)
 	private String Password;
 	@DatabaseField
-	private String Status;
+	private String Status; 
 	@DatabaseField
 	private String IsAdmin;
-	
 	
 }

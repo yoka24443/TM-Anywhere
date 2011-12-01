@@ -16,12 +16,16 @@ import com.elearning.tm.android.client.task.TaskParams;
 import com.elearning.tm.android.client.task.TaskResult;
 import com.elearning.tm.android.client.view.base.BaseActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class ProjectPieReportActivity extends BaseActivity {
-
+	
+	private static String begin;
+	private static String end;
 	private List<TaskInfo> listViewData = new ArrayList<TaskInfo>();
 
 	private Map<String, List<TaskInfo>> list = new HashMap<String, List<TaskInfo>>();
@@ -90,6 +94,7 @@ public class ProjectPieReportActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.report_pie);
+		initDateRegion();
 		doRetrieve();
 	}
 
@@ -119,7 +124,7 @@ public class ProjectPieReportActivity extends BaseActivity {
 
 		TMAPI api = new TMAPI();
 		list = api.QueryTaskReportData("746be26a-b630-4213-889b-4d085beaf279",
-				"2011-10-01", "2011-11-20");
+				begin, end);
 		listViewData = sumTaskTotalTime(list);
 	}
 
@@ -142,5 +147,11 @@ public class ProjectPieReportActivity extends BaseActivity {
 			groups.add(totalTask);
 		}
 		return groups;
+	}
+	
+	private void initDateRegion() {
+		Intent intent = getIntent();
+		begin = intent.getStringExtra("begin");
+		end = intent.getStringExtra("end");
 	}
 }

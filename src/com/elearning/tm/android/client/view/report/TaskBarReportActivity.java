@@ -16,12 +16,16 @@ import com.elearning.tm.android.client.task.TaskParams;
 import com.elearning.tm.android.client.task.TaskResult;
 import com.elearning.tm.android.client.view.base.BaseActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
 public class TaskBarReportActivity extends BaseActivity {
 
+	private static String begin;
+	private static String end;
+	
 	private List<TaskInfo> listViewData = new ArrayList<TaskInfo>();
 
 	private ProgressDialog dialog; // 加载进度
@@ -88,7 +92,7 @@ public class TaskBarReportActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.report_bar);
-//		drawBarChart();
+		initDateRegion();
 		doRetrieve();
 	}
 
@@ -116,7 +120,7 @@ public class TaskBarReportActivity extends BaseActivity {
 		listViewData.clear();
 
 		TMAPI api = new TMAPI();
-		listViewData = api.QueryUsersTaskReportData("2011-11-01", "2011-11-10");
+		listViewData = api.QueryUsersTaskReportData(begin, end);
 	}
 
 	private List<TaskInfo> sumTaskTotalTime(Map<String, List<TaskInfo>> items) {
@@ -139,4 +143,11 @@ public class TaskBarReportActivity extends BaseActivity {
 		}
 		return groups;
 	}
+	
+	private void initDateRegion() {
+		Intent intent = getIntent();
+		begin = intent.getStringExtra("begin");
+		end = intent.getStringExtra("end");
+	}
+	
 }

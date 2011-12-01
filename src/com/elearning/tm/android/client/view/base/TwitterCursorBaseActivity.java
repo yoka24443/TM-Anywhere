@@ -72,6 +72,7 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
             if (result == TaskResult.AUTH_ERROR) {
                 mFeedback.failed("登录信息出错");
                 logout();
+                //publishProgress(e);
             } else if (result == TaskResult.OK) {
                 draw();
                 goTop();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 	protected ArrayList<UserInfo> tmUsers;
 	private Context tmContext;
 	protected LayoutInflater tmInflater;
-
+	private static String selectedUser;
 	public UserArrayAdapter(Context context) {
 		tmUsers = new ArrayList<UserInfo>();
 		tmContext = context;
@@ -50,7 +51,6 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 		public TextView screenName;
 		public TextView userPhone;
 		public TextView userMail;
-//		public TextView followBtn;
 	}
 
 	@Override
@@ -63,13 +63,18 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 			holder.screenName = (TextView) view.findViewById(R.id.screen_name);
 			holder.userPhone = (TextView) view.findViewById(R.id.user_phone);
 			holder.userMail = (TextView) view.findViewById(R.id.user_mail);
-//			holder.followBtn = (TextView) view.findViewById(R.id.follow_btn);
 			view.setTag(holder);
 		} else {
+			View buttons = (View) convertView.findViewById(R.id.call_log_expand);
+			if(buttons != null && buttons.getVisibility() == View.VISIBLE){
+				TextView user = (TextView)((View)(buttons.getParent())).findViewById(R.id.screen_name);
+				selectedUser = user.getText().toString();
+				buttons.setVisibility(View.GONE);
+			}
 			view = convertView;
 		}
-		ViewHolder holder = (ViewHolder) view.getTag();
 		
+		ViewHolder holder = (ViewHolder) view.getTag();
 		final UserInfo user = tmUsers.get(position);
 //		如果需要添加avatar
 //		String profileImageUrl = user.getHeader();
@@ -81,18 +86,11 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 		holder.screenName.setText(user.getUserAccount());
 		holder.userPhone.setText(user.getMobile());
 		holder.userMail.setText(user.getEmail());
-
-//		holder.followBtn.setText("发送短信");
-//		holder.followBtn.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				// 发送短信
-//				Uri uri = Uri.parse("smsto:" + user.getMobile());            
-//				Intent it = new Intent(Intent.ACTION_SENDTO, uri);            
-//				it.putExtra("sms_body", user.getUserAccount() + ", 你好:");            
-//				tmContext.startActivity(it);  
-//			}
-//		});
+		View buttons = (View) view.findViewById(R.id.call_log_expand);
+		if(buttons != null  && user.getUserAccount().equals(selectedUser)){
+			buttons.setVisibility(View.VISIBLE);
+		}
+		
 		return view;
 	}
 

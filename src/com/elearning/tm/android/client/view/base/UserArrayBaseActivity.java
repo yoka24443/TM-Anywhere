@@ -237,17 +237,26 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 					if (inflatedView == null) {
 						ViewStub mViewStub = (ViewStub) view.findViewById(R.id.stub_call_detail);
 						mViewStub.setVisibility(View.VISIBLE);
+						
+						Log.v("get", view.findViewById(R.id.btn_call).toString());
+						Log.v("position", String.valueOf(position));
+						Log.v("id", String.valueOf(id));
+						
 						otherInflatedView = (View) view.findViewById(R.id.call_log_expand);
 					} else {
 						otherInflatedView = inflatedView;
 						if (inflatedView.getVisibility() == View.GONE) {
 							inflatedView.setVisibility(View.VISIBLE);
+							
+							Log.v("get", view.findViewById(R.id.btn_call).toString());
+							Log.v("position", String.valueOf(position));
+							Log.v("id", String.valueOf(id));
+							
 						} else if (inflatedView.getVisibility() == View.VISIBLE) {
 							inflatedView.setVisibility(View.GONE);
 						}
 
 					}
-					Log.v("get", view.findViewById(R.id.btn_call).toString());
 					bindButtonEvent(view,  user);
 				}
 			}
@@ -265,8 +274,7 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 				@Override
 				public void onClick(View v) {
 					// 打电话
-					  Intent myIntentDial = new Intent(  
-	                          "Intent.ACTION_CALL",Uri.parse("tel:"+user.getMobile())  
+					  Intent myIntentDial = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+user.getMobile())  
 	                  );  
 					startActivity(myIntentDial);  
 				}
@@ -287,8 +295,9 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 				@Override
 				public void onClick(View v) {
 					// 发送邮件
+					 String[] receiver = new String[]{user.getEmail()};
 					 Intent it = new Intent(Intent.ACTION_SEND);  
-					     it.putExtra(Intent.EXTRA_EMAIL, user.getEmail());  
+					     it.putExtra(Intent.EXTRA_EMAIL, receiver);  
 					     it.putExtra(Intent.EXTRA_TEXT, user.getUserAccount() + ", 你好:");  
 					     it.setType("text/plain");  
 					     startActivity(Intent.createChooser(it, "选择邮件客户端"));
