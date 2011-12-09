@@ -217,36 +217,23 @@ public class LoginActivity extends Activity {
 	}
 
 	private void onLoginSuccess() {
-		TaskFeedback.getInstance(TaskFeedback.DIALOG_MODE, LoginActivity.this)
-				.success("");
+		TaskFeedback.getInstance(TaskFeedback.DIALOG_MODE, LoginActivity.this).success("");
 		updateProgress("");
 		mUsernameEdit.setText("");
 		mPasswordEdit.setText("");
 
 		Log.d(TAG, "Storing credentials.");
-
-		Intent intent = getIntent().getParcelableExtra(Intent.EXTRA_INTENT);
-		// String action = intent.getAction();
-
-		// if (intent.getAction() == null || !Intent.ACTION_SEND.equals(action))
-		// {
-		// We only want to reuse the intent if it was photo send.
-		// Or else default to the main activity.
-		// intent = new Intent(this, TwitterActivity.class);
-		intent = new Intent(this, FrameActivity.class);
-		// }
+		Intent intent = new Intent(LoginActivity.this, FrameActivity.class);
 		startActivity(intent);
 		finish();
 	}
 
 	private void onLoginFailure(String reason) {
-		TaskFeedback.getInstance(TaskFeedback.DIALOG_MODE, LoginActivity.this)
-				.failed(reason);
+		TaskFeedback.getInstance(TaskFeedback.DIALOG_MODE, LoginActivity.this).failed(reason);
 		enableLogin();
 	}
 
 	private class LoginTask extends GenericTask {
-
 		private String msg = getString(R.string.login_status_failure);
 
 		public String getMsg() {
@@ -264,7 +251,7 @@ public class LoginActivity extends Activity {
 				user = TMApplication.tmApi.Login(username, password);
 				// 如果取出来的userid为空,表明内部或者网络出错
 				if (user.getUserID() == null) {
-					msg = getString(R.string.login_status_network_or_runtime_error);
+					msg = getString(R.string.login_status_network_or_connection_error);
 					publishProgress(msg);
 					return TaskResult.FAILED;
 				}

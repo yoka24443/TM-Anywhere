@@ -52,7 +52,7 @@ public class UpdateActivity extends BaseActivity {
 		setContentView(R.layout.about_update_view);
 		mNavbar = new NavBar(NavBar.HEADER_STYLE_BACK, this);
 		mNavbar.setHeaderTitle("版本更新");
-		new Thread(new CheckVersionTask()).start();
+//		new Thread(new CheckVersionTask()).start();
 		try {
 			versionname = getVersionName();
 		} catch (Exception e) {
@@ -64,7 +64,8 @@ public class UpdateActivity extends BaseActivity {
 		update = (Button)this.findViewById(R.id.btn_update);
 		update.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				showUpdataDialog();
+				new Thread(new CheckVersionTask()).start();
+//				showUpdataDialog();
 			}
 		});
 	}

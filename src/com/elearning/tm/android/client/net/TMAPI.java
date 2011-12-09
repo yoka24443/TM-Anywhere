@@ -157,9 +157,11 @@ public class TMAPI {
 		return list;
 	}
 
-	public Boolean CreateOrModifyTaskInfo(TaskInfo task) {
+	public Boolean CreateOrModifyTaskInfo(TaskInfo task, String type) {
 		Map<String, String> parms = new HashMap<String, String>();
-//		parms.put("tid", task.getTaskID().toString());  暂时没有做修改功能
+		if(type.equalsIgnoreCase("edit")){
+			parms.put("tid", task.getTaskID().toString());  //修改功能传id,新增数据库自动生成
+		}
 		parms.put("pid", task.getPID().toString());
 		parms.put("parentid", task.getPType().toString());
 		parms.put("name", task.getTaskName());
@@ -170,8 +172,7 @@ public class TMAPI {
 		parms.put("planTime", String.valueOf(task.getPlanTime()));
 		parms.put("uid", task.getAssignUser().toString());
 		parms.put("status", String.valueOf(task.getStatus()));
-		parms.put("type", "add");
-
+		parms.put("type", type);  // add, edit
 		SoapObject soap = getSoapObjectResponse("CreateOrModifyTaskInfo", parms);
 		if (soap != null)
 			return true;
@@ -224,6 +225,27 @@ public class TMAPI {
 			tasks.add(pi);
 		}
 		return tasks;
+	}
+	
+	public TaskInfo QueryTaskInfo(String tid){
+		Map<String, String> parms = new HashMap<String, String>();
+		parms.put("tid", tid);
+		SoapObject soap = getSoapObjectResponse("QueryTaskInfo", parms);
+		
+		TaskInfo task = new TaskInfo();
+		if (soap != null)
+			BeanRefUtil.setFieldValueBySoapObject(task, soap);
+		return task;
+	}
+	
+	public Boolean DeleteTaskInfo(String tid){
+		Map<String, String> parms = new HashMap<String, String>();
+		parms.put("tid", tid);
+		SoapObject soap = getSoapObjectResponse("QueryTaskInfo", parms);
+		if (soap != null)
+			return true;
+		else
+			return false;
 	}
 	
 

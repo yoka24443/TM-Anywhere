@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.elearning.tm.android.client.R;
+import com.elearning.tm.android.client.app.TMApplication;
 import com.elearning.tm.android.client.model.NamedItem;
 import com.elearning.tm.android.client.model.TaskInfo;
+import com.elearning.tm.android.client.model.UserInfo;
 import com.elearning.tm.android.client.net.TMAPI;
 import com.elearning.tm.android.client.task.GenericTask;
 import com.elearning.tm.android.client.task.TaskAdapter;
@@ -169,10 +171,10 @@ public class BalanceActivity extends BaseActivity {
 		listViewData.clear();
 		listViewMapList.clear();
 		list.clear(); // 清空上一次的数据
-
+		
+		UserInfo user = TMApplication.instance.getCurrentUser();
 		TMAPI api = new TMAPI();
-		list = api.QueryTaskReportData("746be26a-b630-4213-889b-4d085beaf279",
-				begin, end);
+		list = api.QueryTaskReportData(user.getUserID().toString(), begin, end);
 
 		listViewData = sumTaskTotalTime(list);
 		for (TaskInfo task : listViewData) {

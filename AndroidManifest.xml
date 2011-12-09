@@ -3,15 +3,16 @@
 	package="com.elearning.tm.android.client" android:versionCode="1"
 	android:versionName="1.0">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
-		android:name=".app.TMApplication"  android:windowSoftInputMode="adjustResize|stateHidden" android:debuggable="true">
-		<activity android:name=".view.FrameActivity" android:label="@string/app_name">
+		android:name=".app.TMApplication" android:windowSoftInputMode="adjustResize|stateHidden"
+		android:debuggable="true">
+		<activity android:name=".StartPage" android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<!--欢迎界面StartPage-->
-		<activity android:name=".StartPage"
+		<activity android:name=".view.FrameActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
@@ -30,6 +31,12 @@
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
+		<!--	修改任务-->
+		<activity android:name=".view.TaskEditActivity"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
+			android:launchMode="singleTask">
+		</activity>
+
 		<!--关于界面-->
 		<activity android:name=".view.AboutActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
@@ -64,12 +71,12 @@
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
-			<!--数据同步-->
+		<!--数据同步-->
 		<activity android:name=".view.SyncActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
 		</activity>
-			<!--报表结果-->
+		<!--报表结果-->
 		<activity android:name=".view.ReportResultActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
 			android:launchMode="singleTask">
@@ -92,7 +99,7 @@
 	</application>
 	<uses-sdk android:minSdkVersion="8" />
 	<uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+	<uses-permission android:name="android.permission.CALL_PHONE" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>

@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.elearning.tm.android.client.R;
 import com.elearning.tm.android.client.StartPage;
@@ -52,16 +51,6 @@ public class BaseActivity extends Activity {
 		}
 		finish();
 	}
-
-	// //TODO:具体数据访问类的类的封装
-	// public TwitterDatabase getDb() {
-	// return TMApplication.tmDb;
-	// }
-	//
-	// //TODO:具体数据网络连接的类的封装
-	// public Weibo getApi() {
-	// return TMApplication.tmApi;
-	// }
 
 	public SharedPreferences getPreferences() {
 		return mPreferences;
@@ -125,27 +114,6 @@ public class BaseActivity extends Activity {
 		startActivity(intent);
 	}
 
-	// protected void manageUpdateChecks() {
-	// // 检查后台更新状态设置
-	// boolean isUpdateEnabled = mPreferences.getBoolean(
-	// Preferences.CHECK_UPDATES_KEY, false);
-	//
-	// if (isUpdateEnabled) {
-	// TwitterService.schedule(this);
-	// } else if (!TwitterService.isWidgetEnabled()) {
-	// TwitterService.unschedule(this);
-	// }
-	//
-	// // 检查强制竖屏设置
-	// boolean isOrientationPortrait = mPreferences.getBoolean(
-	// Preferences.FORCE_SCREEN_ORIENTATION_PORTRAIT, false);
-	// if (isOrientationPortrait) {
-	// setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-	// } else {
-	// setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-	// }
-	//
-	// }
 
 	// Menus.
 	protected static final int OPTIONS_MENU_ID_LOGOUT = 1;
@@ -177,13 +145,7 @@ public class BaseActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 
 		MenuItem item;
-		// 功能比较少暂时不需要配置功能,以后可能会用到
-		// item = menu.add(0, OPTIONS_MENU_ID_PREFERENCES, 0,
-		// R.string.omenu_settings);
-		// item.setIcon(android.R.drawable.ic_menu_preferences);
-
-		item = menu
-				.add(0, OPTIONS_MENU_ID_FEEDBACK, 0, R.string.omenu_feedback);
+		item = menu.add(0, OPTIONS_MENU_ID_FEEDBACK, 0, R.string.omenu_feedback);
 		item.setIcon(android.R.drawable.ic_menu_send);
 
 		item = menu.add(0, OPTIONS_MENU_ID_LOGOUT, 0, R.string.omenu_signout);
@@ -246,7 +208,6 @@ public class BaseActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (requestCode == REQUEST_CODE_PREFERENCES && resultCode == RESULT_OK) {
-			// manageUpdateChecks();
 		} else if (requestCode == REQUEST_CODE_LAUNCH_ACTIVITY
 				&& resultCode == RESULT_LOGOUT) {
 			Log.d(TAG, "Result logout.");
@@ -255,11 +216,11 @@ public class BaseActivity extends Activity {
 	}
 
 	protected boolean checkIsLogedIn() {
-		// if (!TMApplication.isLogined) { //代码存在问题,为了调试暂时注释掉
-		// Log.d(TAG, "Not logged in.");
-		// handleLoggedOut();
-		// return false;
-		// }
+		 if (!TMApplication.instance.checkIsLogedIn()) { //代码存在问题,为了调试暂时注释掉
+		 Log.d(TAG, "Not logged in.");
+		 handleLoggedOut();
+		 return false;
+		 }
 		return true;
 	}
 

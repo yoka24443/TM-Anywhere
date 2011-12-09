@@ -4,9 +4,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.elearning.tm.android.client.app.TMApplication;
 import com.elearning.tm.android.client.manage.TaskInfo.NetWorkTaskInfoManager;
 import com.elearning.tm.android.client.model.Paging;
 import com.elearning.tm.android.client.model.TaskInfo;
+import com.elearning.tm.android.client.model.UserInfo;
 import com.elearning.tm.android.client.view.base.TwitterCursorBaseActivity;
 
 import android.os.Bundle;
@@ -45,9 +47,11 @@ public class TMActivity extends TwitterCursorBaseActivity{
 
 	@Override
 	public ArrayList<TaskInfo> getTaskList(Paging page) {
+//		UUID.fromString("746be26a-b630-4213-889b-4d085beaf279"),没有添加判断是否联网
 		int pageindex = page.getPage();
+		UserInfo user = TMApplication.instance.getCurrentUser();
 		NetWorkTaskInfoManager net = new NetWorkTaskInfoManager();
-		ArrayList<TaskInfo> list = (ArrayList<TaskInfo>) net.queryUserTaskList(UUID.fromString("746be26a-b630-4213-889b-4d085beaf279"), pageindex, PRE_PAGE_COUNT);
+		ArrayList<TaskInfo> list = (ArrayList<TaskInfo>) net.queryUserTaskList(user.getUserID(), pageindex, PRE_PAGE_COUNT);
 		return list;
 	}
 

@@ -30,11 +30,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.elearning.tm.android.client.R;
+import com.elearning.tm.android.client.app.TMApplication;
 import com.elearning.tm.android.client.manage.ProjectInfo.NetWorkProjectInfoManager;
 import com.elearning.tm.android.client.manage.TaskWBS.NetWorkTaskWBSManager;
 import com.elearning.tm.android.client.model.ProjectInfo;
 import com.elearning.tm.android.client.model.TaskInfo;
 import com.elearning.tm.android.client.model.TaskWBS;
+import com.elearning.tm.android.client.model.UserInfo;
 import com.elearning.tm.android.client.net.TMAPI;
 import com.elearning.tm.android.client.task.GenericTask;
 import com.elearning.tm.android.client.task.TaskAdapter;
@@ -78,7 +80,7 @@ public class TaskAddActivity extends BaseActivity {
 		protected TaskResult _doInBackground(TaskParams... params) {
 			try {
 				TMAPI api = new TMAPI();
-		    	api.CreateOrModifyTaskInfo(task);
+		    	api.CreateOrModifyTaskInfo(task, "add");
 			} catch (Exception e) {
 				return TaskResult.IO_ERROR;
 			}
@@ -431,7 +433,9 @@ public class TaskAddActivity extends BaseActivity {
     	task.setTotalTime(realTime);
     	task.setPlanTime(planTime);
     	task.setStatus(status);
-    	task.setAssignUser(UUID.fromString("746be26a-b630-4213-889b-4d085beaf279"));
+//    	UUID.fromString("746be26a-b630-4213-889b-4d085beaf279") 测试数据
+    	UserInfo user = TMApplication.instance.getCurrentUser();
+    	task.setAssignUser(user.getUserID());
     	if (mSendTask != null
 				&& mSendTask.getStatus() == GenericTask.Status.RUNNING) {
 			return;

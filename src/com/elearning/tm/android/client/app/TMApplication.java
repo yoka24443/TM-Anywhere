@@ -20,17 +20,23 @@ public class TMApplication extends Application {
 	public static SharedPreferences tmPref;
 	public static String networkType;
 	public static boolean isConnected;
-	public static boolean isLogined;
+//	public static boolean isLogined;
 	public static UserInfo currentUser;
-
+	public static TMApplication instance;
+	
+	public static TMApplication getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		tmContext = this.getApplicationContext();
 		tmApi = new TMAPI();
 		tmPref = PreferenceManager.getDefaultSharedPreferences(this);
-		isLogined = checkIsLogedIn(); //状态应该实时获取
-		networkType = getNetworkType();//状态应该实时获取
+		instance = this;
+//		isLogined = checkIsLogedIn(); //状态应该实时获取
+//		networkType = getNetworkType();//状态应该实时获取
 	}
 
 	// 由于检查网络是否连接是某一瞬间的动作,故写成一方法
@@ -50,7 +56,7 @@ public class TMApplication extends Application {
 	// 检查是否已经登陆
 	public boolean checkIsLogedIn() {
 		if (tmPref.contains(Preferences.CURRENT_USER_ID)
-				&& tmPref.getString(Preferences.CURRENT_USER_ID, "00000000-0000-0000-0000-000000000000") == "00000000-0000-0000-0000-000000000000") {
+				&& tmPref.getString(Preferences.CURRENT_USER_ID, "00000000-0000-0000-0000-000000000000") != "00000000-0000-0000-0000-000000000000") {
 			return true;
 		} else
 			return false;
