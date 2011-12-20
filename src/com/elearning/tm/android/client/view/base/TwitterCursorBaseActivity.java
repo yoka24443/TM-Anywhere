@@ -191,8 +191,8 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
     protected boolean _onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate.");
         if (super._onCreate(savedInstanceState)) {
-            doRetrieve();
-            goTop(); // skip the header
+//            doRetrieve();
+//            goTop(); // skip the header
             return true;
         } else {
             return false;
@@ -207,6 +207,9 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
             mTweetList.setSelection(lastPosition);
         }
         super.onResume();
+        //由于切换到更新界面后返回需要刷新数据,故将获取数据源放在resume里
+        doRetrieve();
+        goTop(); 
         checkIsLogedIn();
     }
 
@@ -291,7 +294,7 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
         Log.d(TAG, "goTop.");
         mTweetList.setSelection(1);
     }
-
+	@Override
     public void doRetrieve() {
         Log.d(TAG, "Attempting retrieve.");
 
@@ -307,6 +310,12 @@ public abstract class TwitterCursorBaseActivity extends TwitterListBaseActivity 
             taskManager.addTask(mRetrieveTask);
         }
     }
+	
+	@Override
+	//刷新
+	public void doRefresh(){
+		doRetrieve();
+	}
 
     private class RetrieveTask extends GenericTask {
         private String _errorMsg;

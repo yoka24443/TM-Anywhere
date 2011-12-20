@@ -10,7 +10,9 @@ import android.app.Dialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,9 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-
 import com.elearning.tm.android.client.R;
 import com.elearning.tm.android.client.model.TaskInfo;
+import com.elearning.tm.android.client.net.TMAPI;
 import com.elearning.tm.android.client.task.GenericTask;
 import com.elearning.tm.android.client.task.TaskAdapter;
 import com.elearning.tm.android.client.task.TaskListener;
@@ -46,7 +48,7 @@ public abstract class TwitterListBaseActivity extends BaseActivity implements
 	protected Dialog dialog = null;
 	protected TaskInfo task = null;
 	protected GenericTask mDeleteTask;
-	
+
 	protected static final String SIS_RUNNING_KEY = "running";
 
 	abstract protected int getLayoutId();
@@ -62,6 +64,8 @@ public abstract class TwitterListBaseActivity extends BaseActivity implements
 	abstract protected TaskInfo getContextItemTask(int position);
 
 	abstract protected void updateTask(TaskInfo task);
+
+	protected abstract void doRefresh();
 
 	@Override
 	protected boolean _onCreate(Bundle savedInstanceState) {
@@ -148,7 +152,8 @@ public abstract class TwitterListBaseActivity extends BaseActivity implements
 					task = null;
 					break;
 				case 2:
-					doDelete(task.getTaskID().toString());
+					delete(task.getTaskID().toString());
+//					doDelete(task.getTaskID().toString());
 					task = null;
 					break;
 				}
@@ -157,15 +162,16 @@ public abstract class TwitterListBaseActivity extends BaseActivity implements
 		builder.setAdapter(adapter, listener);
 		dialog = builder.create();
 	}
-	
-//	分享
-	protected void ShareTask(TaskInfo task){
+
+	// 分享
+	protected void ShareTask(TaskInfo task) {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_TEXT, task.getRemark());
-		startActivity(Intent.createChooser(intent,"分享"));
+		startActivity(Intent.createChooser(intent, "分享"));
 	}
-//	删除
+
+	// 删除
 	private void doDelete(String id) {
 
 		if (mDeleteTask != null
@@ -179,6 +185,24 @@ public abstract class TwitterListBaseActivity extends BaseActivity implements
 			params.put("tid", id);
 			mDeleteTask.execute(params);
 		}
+	}
+
+	private void delete(final String id) {
+		Dialog dialog = new AlertDialog.Builder(TwitterListBaseActivity.this).setTitle(
+				"提示").setMessage("确实要删除吗?").setPositiveButton("确定",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						doDelete(id);
+					}
+				}).setNegativeButton("取消",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				}).create();
+		dialog.show();
 	}
 
 	private TaskListener mDeleteTaskListener = new TaskAdapter() {
@@ -199,8 +223,8 @@ public abstract class TwitterListBaseActivity extends BaseActivity implements
 			}
 		}
 	};
-	
-	public  class DeleteTask extends GenericTask {
+
+	public class DeleteTask extends GenericTask {
 		public static final String TAG = "DeleteTask";
 
 		private BaseActivity activity;
@@ -213,34 +237,37 @@ public abstract class TwitterListBaseActivity extends BaseActivity implements
 		protected TaskResult _doInBackground(TaskParams... params) {
 			TaskParams param = params[0];
 			try {
-				String id = param.getString("id");
-//				com.ch_linghu.fanfoudroid.fanfou.Status status = null;
-//
-//				status = activity.getApi().destroyStatus(id);
-
+				String tid = param.getString("tid");
+				TMAPI api = new TMAPI();
+				Boolean success = api.DeleteTaskInfo(tid);
+				if (success)
+					return TaskResult.OK;
+				else
+					return TaskResult.FAILED;
 			} catch (Exception e) {
 				return TaskResult.IO_ERROR;
 			}
-			return TaskResult.OK;
 		}
 
 	}
-	
-	
+
 	public void onDeleteFailure() {
 		Log.e(TAG, "Delete failed");
 	}
 
 	public void onDeleteSuccess() {
-//		remove 相应list中的item
-		Toast.makeText(TwitterListBaseActivity.this, "删除成功!" ,Toast.LENGTH_SHORT).show();
+		// remove 相应list中的item
+		Toast.makeText(TwitterListBaseActivity.this, "删除成功!",
+				Toast.LENGTH_SHORT).show();
+		// 重新加载列表
+		doRefresh();
 	}
-	
+
 	public void createIntent(String tid) {
 		Intent intent = new Intent();
 		intent.putExtra("tid", tid);
 		intent.setClass(this, TaskEditActivity.class);
 		startActivity(intent);
 	}
-	
+
 }

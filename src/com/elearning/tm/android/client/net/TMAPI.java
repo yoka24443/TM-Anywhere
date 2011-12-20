@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 
@@ -45,7 +46,12 @@ public class TMAPI {
 			ht.call(soapAction, envelope);
 
 			SoapObject result = (SoapObject) envelope.bodyIn;
-			detail = (SoapObject) result.getProperty(methodName + "Result");
+			Object obj = result.getProperty(methodName + "Result");
+			if(obj instanceof SoapPrimitive){
+				SoapPrimitive soap = (SoapPrimitive)obj;
+				return detail = new SoapObject(soap.getNamespace(), soap.toString());
+			}
+			detail = (SoapObject)obj;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -241,8 +247,8 @@ public class TMAPI {
 	public Boolean DeleteTaskInfo(String tid){
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put("tid", tid);
-		SoapObject soap = getSoapObjectResponse("QueryTaskInfo", parms);
-		if (soap != null)
+		SoapObject soap = getSoapObjectResponse("DeleteTaskInfo", parms);
+		if (soap != null && soap.getName().equalsIgnoreCase("true"))
 			return true;
 		else
 			return false;

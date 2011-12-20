@@ -21,7 +21,6 @@ public class ContactActivity extends UserArrayBaseActivity {
 
 	@Override
 	protected boolean _onCreate(Bundle savedInstanceState) {
-
 		if (super._onCreate(savedInstanceState)) {
 			mNavbar.setHeaderTitle("通讯录");
 			search = (TextView) this.findViewById(R.id.search_edit);

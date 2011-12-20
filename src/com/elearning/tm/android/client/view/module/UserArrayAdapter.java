@@ -82,7 +82,11 @@ public class UserArrayAdapter extends BaseAdapter implements TmAdapter {
 //			holder.profileImage.setImageBitmap();
 //		}else
 //			holder.profileImage.setImageBitmap();
-		holder.profileImage.setBackgroundResource(R.drawable.default_avatar);
+		if(user.getUserAccount().equalsIgnoreCase("田成")){
+			holder.profileImage.setBackgroundResource(R.drawable.eason);
+		}else{
+			holder.profileImage.setBackgroundResource(R.drawable.default_avatar);
+		}
 		holder.screenName.setText(user.getUserAccount());
 		holder.userPhone.setText(user.getMobile());
 		holder.userMail.setText(user.getEmail());

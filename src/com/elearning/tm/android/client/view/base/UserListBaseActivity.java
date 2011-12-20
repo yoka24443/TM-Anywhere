@@ -55,12 +55,6 @@ public abstract class UserListBaseActivity extends BaseActivity implements Refre
 		}
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		checkIsLogedIn();
-	}
-
 	private void draw() {
 		getUserAdapter().refresh();
 	}

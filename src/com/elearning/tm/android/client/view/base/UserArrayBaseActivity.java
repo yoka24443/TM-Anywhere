@@ -67,13 +67,13 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 	protected boolean _onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "onCreate.");
 		if (super._onCreate(savedInstanceState)) {
-			doRetrieve();// 加载第一页
+//			doRetrieve();// 加载第一页
 			registerOnClickListener(getUserList());
 			search = (ImageButton) this.findViewById(R.id.search);
 			search.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					allUserList.clear(); // 搜索清空原有数据
-					allUserList.addAll(getUsers(getCurrentPage()));
+					allUserList.addAll(getUsers(new Paging(1)));
 					draw();
 				}
 			});
@@ -175,6 +175,13 @@ public abstract class UserArrayBaseActivity extends UserListBaseActivity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		checkIsLogedIn();
+		doRetrieve();// 加载第一页
+	}
+	
 	@Override
 	protected int getLayoutId() {
 		return R.layout.follower;

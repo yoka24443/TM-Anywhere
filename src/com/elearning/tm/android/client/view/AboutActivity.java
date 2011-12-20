@@ -18,6 +18,7 @@ import com.elearning.tm.android.client.view.module.NavBar;
 import com.elearning.tm.android.client.view.module.SquareItemAdapter;
 
 
+
 public class AboutActivity extends BaseActivity {
 	NavBar mNavbar;
 	private ListView mListView = null;
@@ -65,10 +66,11 @@ public class AboutActivity extends BaseActivity {
 		item1.setAction("com.elearning.tm.android.client.view.HelpActivity");
 		title.add(item1);
 		
+	/*	功能没有完成,暂时隐掉
 		ItemInfo item2 = new ItemInfo();
 		item2.setTitle("数据同步");
 		item2.setAction("com.elearning.tm.android.client.view.SyncActivity");
-		title.add(item2);
+		title.add(item2);*/
 		
 		ItemInfo item3 = new ItemInfo();
 		item3.setTitle("软件更新");

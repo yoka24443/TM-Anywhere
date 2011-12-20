@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="E:/MyAndroid/TM-Anywhere/Libs/ksoap2-android-assembly-2.5.7-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="E:/MyAndroid/TM-Anywhere/Libs/ksoap2-android-assembly-2.5.7-jar-with-dependencies.jar" sourcepath="E:/MyAndroid/ksoap2/ksoap2-android"/>
 	<classpathentry kind="lib" path="E:/MyAndroid/TM-Anywhere/Libs/ormlite-android-4.20.jar" sourcepath="E:/MyAndroid/TM-Anywhere/Libs/ormlite-android-4.20-sources.jar"/>
 	<classpathentry kind="lib" path="E:/MyAndroid/TM-Anywhere/Libs/ormlite-core-4.20.jar" sourcepath="E:/MyAndroid/TM-Anywhere/Libs/ormlite-core-4.20-sources.jar"/>
 	<classpathentry kind="lib" path="D:/achartengine-0.7.0.jar"/>
